@@ -449,7 +449,7 @@
             window.addEventListener("click",function(e){
                 num_try =num_try+1;
                 console.log(num_try)
-                if(controls.enabled==true){
+                if(controls.enabled==true && num_try<5){
                     var x = sphereBody.position.x;
                     var y = sphereBody.position.y;
                     var z = sphereBody.position.z;
@@ -474,6 +474,9 @@
                     ballBody.position.set(x,y,z);
                     ballMesh.position.set(x,y,z);
                 }
+				else{
+					console.log("out of ball");
+				}
             });
 
 
