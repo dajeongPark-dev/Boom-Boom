@@ -56,6 +56,7 @@
             }
 
         </style>
+		
     </head>
     <body>
         <script src="../libs/Three.js"></script>
@@ -214,6 +215,9 @@
                 groundBody.addShape(groundShape);
                 groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
                 world.addBody(groundBody);
+				
+				
+				
             }
 
             function init() {
@@ -351,8 +355,8 @@
                 boxMesh.receiveShadow = true;
                 boxes.push(boxBody);
                 boxMeshes.push(boxMesh);
-
-
+				
+				
                 // // Add linked boxes
                 // var size = 0.5;
                 // var he = new CANNON.Vec3(size,size,size*0.1);
@@ -435,8 +439,9 @@
             var ballShape = new CANNON.Sphere(0.2);
             var ballGeometry = new THREE.SphereGeometry(ballShape.radius, 32, 32);
             var shootDirection = new THREE.Vector3();
-            var shootVelo = 15;
+            var shootVelo = 5; //ball power
             var projector = new THREE.Projector();
+			
             function getShootDir(targetVec){
                 var vector = targetVec;
                 targetVec.set(0,0,1);
@@ -446,7 +451,18 @@
             }
 
             num_try=0
-            window.addEventListener("click",function(e){
+			
+			window.addEventListener("mousedown", function(e){
+			
+				timer = setInterval(function() {
+				shootVelo+=2;
+				}, 100);
+				
+			});
+			
+            window.addEventListener("mouseup",function(e){
+				clearInterval(timer);
+				console.log(shootVelo);
                 num_try =num_try+1;
                 console.log(num_try)
                 if(controls.enabled==true && num_try<5){
@@ -473,6 +489,7 @@
                     z += shootDirection.z * (sphereShape.radius*1.02 + ballShape.radius);
                     ballBody.position.set(x,y,z);
                     ballMesh.position.set(x,y,z);
+					shootVelo=5;
                 }
 				else{
 					console.log("out of ball");
