@@ -92,6 +92,7 @@ function init2() {
 
     material = new THREE.MeshLambertMaterial({ color: 0xdddddd });
     material2 = new THREE.MeshLambertMaterial({ color: 0x9999 });
+    material3 = new THREE.MeshLambertMaterial({ color: 0xff1111 });
 
     mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
@@ -163,7 +164,7 @@ function init2() {
     var boxGeometry = new THREE.BoxGeometry(halfExtents.x * 2, halfExtents.y * 2, halfExtents.z * 2);
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material2);
+    var boxMesh = new THREE.Mesh(boxGeometry, material3);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(1, 3, -5);

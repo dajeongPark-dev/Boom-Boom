@@ -271,14 +271,14 @@ function animate1() {
             // remove box if it fall
             // console.log(boxMeshes[0].position.y);
             if (boxMeshes[2].position.y < 1.21111) {
-                scene.remove(boxMeshes[2]);
+                //scene.remove(boxMeshes[2]);
                 stage_clear = true;
                 // console.log(stage_clear);
                 clear();
                 //stage2();
             }
             if (boxMeshes[3].position.y < 1.21111) {
-                scene.remove(boxMeshes[3]);
+                //scene.remove(boxMeshes[3]);
             }
         }
     }
