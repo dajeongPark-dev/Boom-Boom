@@ -27,7 +27,7 @@
                 padding:5px;
                 text-align:center;
                 font-size:30pt;
-        }
+         }
 
         #blocker {
             position: absolute;
@@ -80,7 +80,7 @@
                             <br />
                             If you fall green block, stage cleared!
                             <br/>
-                            <button id = "next" onClick="location.href='threejs_fps2.html'"> Next Stage</button>
+                            <button id = "next" onClick="location.href='threejs_fps.html'"> Next Stage</button>
                             <button id = "done" onClick='self.close()'> CLOSE </button>
                         </div>
                     <div id="success">
@@ -88,7 +88,7 @@
                             
                         </div>
                 </div>
-            <div id='power'>0</div>      
+    <div id='power'>0</div>
     <script>
         var sphereShape, sphereBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [];
         var stage_clear = false;
@@ -151,7 +151,7 @@
             instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
         }
 
-        var stageStage = 1;
+        var stageStage = 2;
         switch (stageStage) {
             case 1:
                 stage1();
