@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-   
+
 
 <head>
-           
+
     <meta charset="utf-8">
-            <title>cannon.js + three.js physics shooter</title>
-            <style>
+        <title>cannon.js + three.js physics shooter</title>
+        <style>
         html,
         body {
             width: 100%;
@@ -57,38 +57,41 @@
             cursor: pointer;
         }
     </style>
-       
+
 </head>
-   
+
 
 <body>
-           
+    <script src="../three.js-dev/examples/js/libs/ammo.wasm.js"></script>
+
     <script src="../libs/Three.js"></script>
-           
+
     <script src="../build/cannon.js"></script>
-           
+
     <script src="js/PointerLockControls.js"></script>
-           
+
     <script src="js/Stage1.js"></script>
-           
+
     <script src="js/Stage2.js"></script>
-           
+    <script src="../three.js-dev/examples/jsm/misc/ConvexObjectBreaker.js" type="module"></script>
+    <script src="../three.js-dev/examples/jsm/geometries/ConvexGeometry.js" type="module"></script>
+    <script src="../three.js-dev/examples/jsm/controls/OrbitControls.js" type="module"></script>
     <script>var num_try;</script>
-            <div id="blocker">
-                    <div id="instructions">
-                            <span style="font-size:40px">stage1</span>
-                            <br />
-                            If you fall green block, stage cleared!
+        <div id="blocker">
+              <div id="instructions">
+                    <span style="font-size:40px">stage1</span>
+                    <br />
+                    If you fall green block, stage cleared!
                             <br/>
                             <button id = "next" onClick="location.href='threejs_fps2.html'"> Next Stage</button>
                             <button id = "done" onClick='self.close()'> CLOSE </button>
-                        </div>
-                    <div id="success">
-                            <span style="font-size:40px">Stage1 Clear!</span>
+                  </div>
+              <div id="success">
+                    <span style="font-size:40px">Stage1 Clear!</span>
                             
-                        </div>
-                </div>
-            <div id='power'>0</div>      
+                  </div>
+            </div>
+            <div id='power'>0</div>
     <script>
         var sphereShape, sphereBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [];
         var stage_clear = false;
@@ -174,9 +177,9 @@
             targetVec.copy(ray.direction);
         }
         num_try = 0;
-		
+
 		window.addEventListener("mousedown", function(e){
-			
+
 				timer = setInterval(function() {
 				shootVelo+=2;
 				}, 100);
@@ -255,7 +258,7 @@
 
         }
     </script>
-       
+
 </body>
 
 </html>

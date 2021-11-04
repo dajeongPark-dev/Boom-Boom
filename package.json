@@ -40,5 +40,6 @@
     "grunt-contrib-yuidoc": "^0.5.2",
     "browserify": "*"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "type": "module"
 }
