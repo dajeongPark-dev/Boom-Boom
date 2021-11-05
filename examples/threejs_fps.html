@@ -82,7 +82,7 @@
                             <br/>
                             <button id = "next" onClick="location.href='threejs_fps2.html'"> Next Stage</button>
                             <button id = "home" onClick="location.href='BoomBoom.html'"> Home</button>
-                            <button id = "again" onClick='self.close()'> Try Again </button>
+                            <button id = "again" onClick='self.close()'> Start </button>
                         </div>
                     <div id="success">
                             <span style="font-size:40px">Stage1 Clear!</span>
@@ -184,7 +184,7 @@
 				
 			});
 			
-       window.addEventListener("mouseup",function(e){
+        window.addEventListener("mouseup",function(e){
 				clearInterval(timer);
 				console.log(shootVelo);
                 power.innerHTML = shootVelo;
@@ -220,7 +220,7 @@
 					console.log("out of ball");
 				}
             });
-	  
+
         function clear() {
 
             if (stage_clear === true && reset_state === false) {

@@ -241,6 +241,7 @@ function animate1() {
                 //scene.remove(boxMeshes[2]);
                 stage_clear = true;
                 // console.log(stage_clear);
+                document.exitPointerLock();
                 clear();
                 break;
                 //stage2();
