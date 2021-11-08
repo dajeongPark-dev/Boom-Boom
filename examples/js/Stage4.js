@@ -375,6 +375,11 @@ function animate4() {
             //     // console.log(stage_clear);
             //     clear();
             // }
+            if(boxMeshes[2].position.y < 1.21111 && boxMeshes[5].position.y < 1.21111){
+                stage_clear = true;
+                document.exitPointerLock();
+                clear();
+            }
         }
         for(var i = 0; i < cylinders.length; i++){
             cylMeshes[i].position.copy(cylinders[i].position);
