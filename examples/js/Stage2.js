@@ -1,6 +1,6 @@
 function stage2() {
-    initCannon2();
-    init2();
+    //initCannon2();
+    init2(); // 옮기기
     animate2();
 }
 function initCannon2() {
@@ -9,7 +9,7 @@ function initCannon2() {
     world.quatNormalizeSkip = 0;
     world.quatNormalizeFast = false;
     var solver = new CANNON.GSSolver();
-    world.defaultContactMaterial.contactEquationStiffness = 1e8;
+    world.defaultContactMaterial.contactEquationStiffness = 5e8;
     world.defaultContactMaterial.contactEquationRelaxation = 10;
     solver.iterations = 7;
     solver.tolerance = 0.1;
@@ -18,7 +18,8 @@ function initCannon2() {
         world.solver = new CANNON.SplitSolver(solver);
     else
         world.solver = solver;
-    world.gravity.set(0, -20, 0);
+    world.gravity.set(0, -5, 0);
+    // 중력 조절
     world.broadphase = new CANNON.NaiveBroadphase();
     // Create a slippery material (friction coefficient = 0.0)
     physicsMaterial = new CANNON.Material("slipperyMaterial");
@@ -51,9 +52,58 @@ function initCannon2() {
     
 }
 function init2() {
+
+    
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x000000, 0, 500);
+
+    // Setup our world
+    world = new CANNON.World();
+    world.quatNormalizeSkip = 0;
+    world.quatNormalizeFast = false;
+    var solver = new CANNON.GSSolver();
+    world.defaultContactMaterial.contactEquationStiffness = 5e8;
+    world.defaultContactMaterial.contactEquationRelaxation = 10;
+    solver.iterations = 7;
+    solver.tolerance = 0.1;
+    var split = true;
+    if (split)
+        world.solver = new CANNON.SplitSolver(solver);
+    else
+        world.solver = solver;
+    world.gravity.set(0, -5, 0);
+    // 중력 조절
+    world.broadphase = new CANNON.NaiveBroadphase();
+    // Create a slippery material (friction coefficient = 0.0)
+    physicsMaterial = new CANNON.Material("slipperyMaterial");
+    var physicsContactMaterial = new CANNON.ContactMaterial(physicsMaterial,
+        physicsMaterial,
+        0.0,// friction coefficient
+        0.3 // restitution
+        
+    );
+    // We must add the contact materials to the world
+    world.addContactMaterial(physicsContactMaterial);
+    
+    // Create a sphere
+    var mass = 5, radius = 1.3;
+    sphereShape = new CANNON.Sphere(radius);
+    sphereBody = new CANNON.Body({ mass: mass });
+    sphereBody.addShape(sphereShape);
+    sphereBody.position.set(0, 5, 0);
+    sphereBody.linearDamping = 0.9;
+    
+    world.addBody(sphereBody);
+    // Create a plane
+    var groundShape = new CANNON.Plane();
+    var groundBody = new CANNON.Body({ mass: 0 });
+    groundBody.addShape(groundShape);
+    groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+    
+    world.addBody(groundBody);
+
+
     var ambient = new THREE.AmbientLight(0x111111);
     scene.add(ambient);
     light = new THREE.SpotLight(0xffffff);
@@ -72,7 +122,25 @@ function init2() {
     }
     scene.add(light);
 
+    // var texture, material, plane;
 
+    // texture = THREE.ImageUtils.loadTexture( "images_stage/grass.png" );
+
+    // // assuming you want the texture to repeat in both directions:
+    // texture.wrapS = THREE.RepeatWrapping; 
+    // texture.wrapT = THREE.RepeatWrapping;
+
+    // // how many times to repeat in each direction; the default is (1,1),
+    // //   which is probably why your example wasn't working
+    // texture.repeat.set( 4, 4 ); 
+
+    // material = new THREE.MeshLambertMaterial({ map : texture });
+    // plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 3500), material);
+    // plane.material.side = THREE.DoubleSide;
+    // plane.position.x = 100;
+    // plane.rotation.z = Math.PI / 2;
+
+    // scene.add(plane);
 
     controls = new PointerLockControls(camera, sphereBody);
     scene.add(controls.getObject());
@@ -304,21 +372,21 @@ function init2() {
     // boxes.push(boxBody);
     // boxMeshes.push(boxMesh);
 
-    var cylinderShape = new CANNON.Cylinder( 0.5, 0.5, 0.5*2.2,32);
-    var CylinderGeometry = new THREE.CylinderGeometry(0.5 * 2, 0.5* 2, 0.5*2.2 * 2,64);    
-    var cylinderBody = new CANNON.Body({mass : 1});
-    cylinderBody.addShape(cylinderShape);
-    var cylinderMesh = new THREE.Mesh( CylinderGeometry, material3 );
-    world.addBody(cylinderBody);
-    scene.add(cylinderMesh);
-    cylinderBody.position.set(-5,1,-5);
+    // var cylinderShape = new CANNON.Cylinder( 0.5, 0.5, 0.5*2.2,32);
+    // var CylinderGeometry = new THREE.CylinderGeometry(0.5 * 2, 0.5* 2, 0.5*2.2 * 2,64);    
+    // var cylinderBody = new CANNON.Body({mass : 1});
+    // cylinderBody.addShape(cylinderShape);
+    // var cylinderMesh = new THREE.Mesh( CylinderGeometry, material3 );
+    // world.addBody(cylinderBody);
+    // scene.add(cylinderMesh);
+    // cylinderBody.position.set(-5,1,-5);
    
-    cylinderBody.fixedRotation = true;
-    cylinderMesh.position.set(-5,1,-5);
-    cylinderMesh.castShadow = true;
-    cylinderMesh.receiveShadow = true;
-    boxes.push(cylinderBody);
-    boxMeshes.push(cylinderMesh);
+    // cylinderBody.fixedRotation = true;
+    // cylinderMesh.position.set(-5,1,-5);
+    // cylinderMesh.castShadow = true;
+    // cylinderMesh.receiveShadow = true;
+    // boxes.push(cylinderBody);
+    // boxMeshes.push(cylinderMesh);
 
 
     // // Add linked boxes
@@ -387,6 +455,8 @@ function animate2() {
                 clear();
             }
         }
+
+        // 실린더 코드 추가
     }
     controls.update(Date.now() - time);
     renderer.render(scene, camera);
