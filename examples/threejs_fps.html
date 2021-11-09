@@ -5,8 +5,11 @@
 <head>
 
     <meta charset="utf-8">
-        <title>cannon.js + three.js physics shooter</title>
-        <style>
+    <title>cannon.js + three.js physics shooter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Squada+One&display=swap" rel="stylesheet">
+    <style>
         html,
         body {
             width: 100%;
@@ -19,14 +22,15 @@
             overflow: hidden;
             font-family: arial;
         }
-        #power { 
-                position: fixed;
-                top: 0;
-                center:0;
-                color:white;
-                padding:5px;
-                text-align:center;
-                font-size:30pt;
+
+        #power {
+            position: fixed;
+            top: 0;
+            center: 0;
+            color: white;
+            padding: 5px;
+            text-align: center;
+            font-size: 30pt;
         }
 
         #blocker {
@@ -56,6 +60,67 @@
             text-align: center;
             cursor: pointer;
         }
+
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+        :root {
+            --button-color: #ffffff;
+            --button-bg-color: #0d6efd;
+            --button-hover-bg-color: #025ce2;
+        }
+
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+
+            background: var(--button-bg-color);
+            color: var(--button-color);
+
+            margin: 10px;
+            padding: 0.5rem 1rem;
+
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            text-align: center;
+            text-decoration: none;
+
+            border: none;
+            border-radius: 4px;
+
+            display: inline-block;
+            width: auto;
+
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+            cursor: pointer;
+
+            transition: 0.5s;
+        }
+
+        button.next {
+            --button-bg-color: #b66eff;
+            --button-hover-bg-color: #935bca;
+        }
+
+        button.home {
+            --button-bg-color: #e80788;
+            --button-hover-bg-color: #b40769;
+        }
+
+        button.done {
+            /* --button-color: #ffffff; */
+            --button-bg-color: #b66eff;
+            --button-hover-bg-color: #935bca;
+        }
+
+        button:active,
+        button:hover,
+        button:focus {
+            background: var(--button-hover-bg-color);
+            outline: 0;
+        }
     </style>
 
 </head>
@@ -77,22 +142,22 @@
     <script src="../three.js-dev/examples/jsm/geometries/ConvexGeometry.js" type="module"></script>
     <script src="../three.js-dev/examples/jsm/controls/OrbitControls.js" type="module"></script>
     <script>var num_try;</script>
-        <div id="blocker">
-              <div id="instructions">
-                    <span style="font-size:40px">stage1</span>
-                    <br />
-                    If you fall green block, stage cleared!
-                            <br/>
-                            <button id = "next" onClick="location.href='threejs_fps2.html'"> Next Stage</button>
-                            <button id = "home" onClick="location.href='boomboom.html'"> HOME</button>
-                            <button id = "done" onClick='self.close()'> CLOSE </button>
-                  </div>
-              <div id="success">
-                    <span style="font-size:40px">Stage1 Clear!</span>
-                            
-                  </div>
-            </div>
-            <div id='power'>0</div>
+    <div id="blocker">
+        <div id="instructions">
+            <span style="font-size:40px">stage1</span>
+            <br />
+            If you fall green block, stage cleared!
+            <br />
+            <button class="next" onClick="location.href='threejs_fps2.html'"> NEXT </button>
+            <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
+            <button class="done" onClick='self.close()'> CLOSE </button>
+        </div>
+        <div id="success">
+            <span style="font-size:40px">Stage1 Clear!</span>
+
+        </div>
+    </div>
+    <div id='power'>0</div>
     <script>
         var sphereShape, sphereBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [];
         var stage_clear = false;
@@ -124,7 +189,7 @@
                 instructions.style.display = '';
             }
             // Hook pointer lock state change events
-            
+
             document.addEventListener('pointerlockchange', pointerlockchange, false);
             document.addEventListener('mozpointerlockchange', pointerlockchange, false);
             document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
@@ -179,51 +244,51 @@
         }
         num_try = 0;
 
-		window.addEventListener("mousedown", function(e){
+        window.addEventListener("mousedown", function (e) {
 
-				timer = setInterval(function() {
-				shootVelo+=2;
-				}, 100);
-				
-			});
-			
-       window.addEventListener("mouseup",function(e){
-				clearInterval(timer);
-				console.log(shootVelo);
-                power.innerHTML = shootVelo;
-                num_try =num_try+1;
-                console.log(num_try)
-                if(controls.enabled==true && num_try<5){
-                    var x = sphereBody.position.x;
-                    var y = sphereBody.position.y;
-                    var z = sphereBody.position.z;
-                    var ballBody = new CANNON.Body({ mass: 1 });
-                    ballBody.addShape(ballShape);
-                    var ballMesh = new THREE.Mesh( ballGeometry, material );
-                    world.addBody(ballBody);
-                    scene.add(ballMesh);
-                    ballMesh.castShadow = true;
-                    ballMesh.receiveShadow = true;
-                    balls.push(ballBody);
-                    ballMeshes.push(ballMesh);
-                    getShootDir(shootDirection);
-                    ballBody.velocity.set(  shootDirection.x * shootVelo,
-                                            shootDirection.y * shootVelo,
-                                            shootDirection.z * shootVelo);
+            timer = setInterval(function () {
+                shootVelo += 2;
+            }, 100);
 
-                    // Move the ball outside the player sphere
-                    x += shootDirection.x * (sphereShape.radius*1.02 + ballShape.radius);
-                    y += shootDirection.y * (sphereShape.radius*1.02 + ballShape.radius);
-                    z += shootDirection.z * (sphereShape.radius*1.02 + ballShape.radius);
-                    ballBody.position.set(x,y,z);
-                    ballMesh.position.set(x,y,z);
-					shootVelo=5;
-                }
-				else{
-					console.log("out of ball");
-				}
-            });
-	  
+        });
+
+        window.addEventListener("mouseup", function (e) {
+            clearInterval(timer);
+            console.log(shootVelo);
+            power.innerHTML = shootVelo;
+            num_try = num_try + 1;
+            console.log(num_try)
+            if (controls.enabled == true && num_try < 5) {
+                var x = sphereBody.position.x;
+                var y = sphereBody.position.y;
+                var z = sphereBody.position.z;
+                var ballBody = new CANNON.Body({ mass: 1 });
+                ballBody.addShape(ballShape);
+                var ballMesh = new THREE.Mesh(ballGeometry, material);
+                world.addBody(ballBody);
+                scene.add(ballMesh);
+                ballMesh.castShadow = true;
+                ballMesh.receiveShadow = true;
+                balls.push(ballBody);
+                ballMeshes.push(ballMesh);
+                getShootDir(shootDirection);
+                ballBody.velocity.set(shootDirection.x * shootVelo,
+                    shootDirection.y * shootVelo,
+                    shootDirection.z * shootVelo);
+
+                // Move the ball outside the player sphere
+                x += shootDirection.x * (sphereShape.radius * 1.02 + ballShape.radius);
+                y += shootDirection.y * (sphereShape.radius * 1.02 + ballShape.radius);
+                z += shootDirection.z * (sphereShape.radius * 1.02 + ballShape.radius);
+                ballBody.position.set(x, y, z);
+                ballMesh.position.set(x, y, z);
+                shootVelo = 5;
+            }
+            else {
+                console.log("out of ball");
+            }
+        });
+
         function clear() {
 
             if (stage_clear === true && reset_state === false) {
