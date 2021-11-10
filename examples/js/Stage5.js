@@ -55,10 +55,10 @@ function init5() {
         1000
     );
     scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x000000, 0, 500);
+    scene.fog = new THREE.Fog(0xA2F6FF, 0, 500);
     var ambient = new THREE.AmbientLight(0x111111);
     scene.add(ambient);
-    light = new THREE.SpotLight(0xffffff);
+    light = new THREE.SpotLight(0xB5B2FF);
     light.position.set(10, 30, 20);
     light.target.position.set(0, 0, 0);
     if (true) {

@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8">
-    <title>BoomBoom - Stageg 3</title>
+    <title>BoomBoom - Stage 3</title>
     <link rel="stylesheet" type="text/css" href="css/ButtonStyle.css">
     <style>
         html,
@@ -35,6 +35,17 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        #crosshair{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2%;
+        transform: translate(-50%, -50%);
+        }
+        #game_hud{
+        visibility: hidden;
         }
 
         #instructions,
@@ -94,6 +105,9 @@
         </div>
     </div>
     <div id='power'>0</div>
+	    <div id="game_hud">
+      <img id="crosshair" src="images_stage/crosshair.png" />
+    </div>
     <script>
         var sphereShape, sphereBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [];
         var stage_clear = false;
@@ -113,12 +127,14 @@
                 if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
                     controls.enabled = true;
                     blocker.style.display = 'none';
+					document.getElementById("game_hud").style.visibility = 'visible';
                 } else {
                     controls.enabled = false;
                     blocker.style.display = '-webkit-box';
                     blocker.style.display = '-moz-box';
                     blocker.style.display = 'box';
                     instructions.style.display = '';
+					document.getElementById("game_hud").style.visibility = 'hidden';
                 }
             }
             var pointerlockerror = function (event) {
