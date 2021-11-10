@@ -132,12 +132,14 @@
                 if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
                     controls.enabled = true;
                     blocker.style.display = 'none';
+					document.getElementById("game_hud").style.visibility = 'visible';
                 } else {
                     controls.enabled = false;
                     blocker.style.display = '-webkit-box';
                     blocker.style.display = '-moz-box';
                     blocker.style.display = 'box';
                     instructions.style.display = '';
+					document.getElementById("game_hud").style.visibility = 'hidden';
                 }
             }
             var pointerlockerror = function (event) {
