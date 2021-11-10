@@ -19,6 +19,7 @@
             margin: 0;
             overflow: hidden;
             font-family: arial;
+			cursor: url("../examples/cursor.cur"),default;
         }
 
         #power {
@@ -64,7 +65,6 @@
 
 
 <body>
-    <script src="../three.js-dev/examples/js/libs/ammo.wasm.js"></script>
 
     <script src="../libs/Three.js"></script>
 
@@ -82,9 +82,7 @@
 
     <script src="js/Stage5.js"></script>
 
-    <script src="../three.js-dev/examples/jsm/misc/ConvexObjectBreaker.js" type="module"></script>
-    <script src="../three.js-dev/examples/jsm/geometries/ConvexGeometry.js" type="module"></script>
-    <script src="../three.js-dev/examples/jsm/controls/OrbitControls.js" type="module"></script>
+
     <script>var num_try;</script>
     <div id="blocker">
         <div id="instructions">
@@ -101,6 +99,9 @@
         </div>
     </div>
     <div id='power'>0</div>
+	    <div id="game_hud">
+      <img id="crosshair" src="images_stage/crosshair.png" />
+    </div>
     <script>
         var sphereShape, sphereBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [];
         var stage_clear = false;
