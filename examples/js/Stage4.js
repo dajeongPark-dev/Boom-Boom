@@ -47,7 +47,7 @@ function initCannon4() {
 function init4() {
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x574DAB, 0, 500);
+    scene.fog = new THREE.Fog(0x2D2D5A, 0, 500);
     var ambient = new THREE.AmbientLight(0x111111);
     scene.add(ambient);
     light = new THREE.SpotLight(0xffffff);
@@ -68,30 +68,58 @@ function init4() {
 
     controls = new PointerLockControls(camera, sphereBody);
     scene.add(controls.getObject());
+
     // floor
+    THREE.ImageUtils.crossOrigin = '';
     geometry = new THREE.PlaneGeometry(300, 300, 50, 50);
     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
 
-    // materials = [];
-    // for (var i=1; i<4; i++) {
-    //     var loader = new THREE.TextureLoader();
-    //
-    //     var texture = loader.load('tree_texture' + i + '.jpg');
-    //     materials.push(new THREE.MeshBasicMaterial({
-    //         map: texture, side: THREE.DoubleSide
-    //     }))
-    // }
-
-
-    var clothTexture = THREE.ImageUtils.loadTexture( 'sunflower.jpg' ); // circuit_pattern.png
-    clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
-    clothTexture.anisotropy = 16;
-
-
     material = new THREE.MeshLambertMaterial({ color: 0xDDDDDD });
-    material_ground = new THREE.MeshLambertMaterial({ color: 0xB1ECAB });
-    material2 = new THREE.MeshLambertMaterial({ color: 0x9999 });
-    material3 = new THREE.MeshLambertMaterial({ color: 0xff1111 });
+    var texture	= THREE.ImageUtils.loadTexture('images_stage/rocks.jpg');
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set( 50, 50 );
+    var material_ground	= new THREE.MeshPhongMaterial({
+        map	: texture,
+        bumpMap	: texture,
+        bumpScale: 0.03
+    })
+
+    var texture2	= THREE.ImageUtils.loadTexture('images_stage/tree_texture1.jpg');
+    var material2 = new THREE.MeshPhongMaterial({
+        color: 0xE75656,
+        map	: texture2,
+        bumpMap	: texture2,
+        bumpScale: 0.03
+    })
+
+    var texture3	= THREE.ImageUtils.loadTexture('images_stage/tree_texture2.jpg');
+    var material3 = new THREE.MeshPhongMaterial({
+        map	: texture3,
+        bumpMap	: texture3,
+        bumpScale: 0.03
+    })
+
+    var texture4	= THREE.ImageUtils.loadTexture('images_stage/tree_texture3.jpg');
+    var material4 = new THREE.MeshPhongMaterial({
+        map	: texture4,
+        bumpMap	: texture4,
+        bumpScale: 0.03
+    })
+
+    var material5 = new THREE.MeshPhongMaterial({
+        map	: texture2,
+        bumpMap	: texture2,
+        bumpScale: 0.03
+    })
+
+    var texture5 = THREE.ImageUtils.loadTexture('images_stage/ansdid2.png');
+    // texture5.wrapS = texture5.wrapT = THREE.RepeatWrapping;
+    // texture5.repeat.set( 50, 50);
+    var material6 = new THREE.MeshPhongMaterial({
+        map	: texture5,
+        bumpMap	: texture5,
+        bumpScale: 0.3
+    })
 
     mesh = new THREE.Mesh(geometry, material_ground);
     mesh.castShadow = true;
@@ -104,15 +132,61 @@ function init4() {
     renderer.setClearColor(scene.fog.color, 1);
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
+
+    // Add canon
+    var length = 13;
+    var z = 10;
+    var geometry = new THREE.CylinderGeometry(0.1, 0.1, 1, 50);
+    // var material6 = new THREE.MeshPhongMaterial({
+    //     color: 0x555555,
+    //     emissive: 0x111111,
+    //     side: THREE.DoubleSide,
+    //     flatShading: true
+    // });
+    cannon = new THREE.Mesh(geometry, material6);
+    cannon.rotation.x = Math.PI * 2.75;
+    scene.add(cannon);
+    cannon.position.y = 0.7;
+    cannon.position.z = -0.5;
+    // cannon base
+    var geometry = new THREE.SphereGeometry(0.7, 16,
+        16, 0, Math.PI * 2, -1.6);
+    var material7 = new THREE.MeshBasicMaterial({color: 0x222222});
+    var base = new THREE.Mesh(geometry, material7);
+    base.position.set(0, 0, -0.3)
+    scene.add(base);
+
+    var scope = this;
+    var PI_2 = Math.PI * 2;
+    var onMouseMoveForCannon = function (event) {
+
+        if (scope.enabled === false) return;
+
+        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
+
+        cannon.rotation.y -= movementX * 0.002;
+        cannon.rotation.x -= movementY * 0.002;
+        cannon.rotation.z -= movementX * 0.002;
+
+        cannon.rotation.x = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.x));
+        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
+        // cannon.rotation.z = Math.max(-PI_2, Math.min(PI_2, cannon.rotation.y));
+
+    };
+    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+
+
     // Add boxes
     var halfExtents = new CANNON.Vec3(1, 1, 1);
     var boxShape = new CANNON.Box(halfExtents);
     var boxGeometry = new THREE.BoxGeometry(halfExtents.x * 2, halfExtents.y * 2, halfExtents.z * 2);
 
     //left box1
-    var boxBody = new CANNON.Body({ mass: 1 });
+    var boxBody = new CANNON.Body({mass: 1});
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material);
+    var boxMesh = new THREE.Mesh(boxGeometry, material4);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(-5, 1, -15);
@@ -123,10 +197,11 @@ function init4() {
     boxes.push(boxBody);
     boxMeshes.push(boxMesh);
 
+
     //left box2
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material);
+    var boxMesh = new THREE.Mesh(boxGeometry, material4);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(-5, 1, -13);
@@ -140,7 +215,7 @@ function init4() {
     // left red box
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material3);
+    var boxMesh = new THREE.Mesh(boxGeometry, material2);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(-5, 3, -15);
@@ -157,7 +232,7 @@ function init4() {
     var cylGeometry = new THREE.CylinderGeometry(halfExtents.x , halfExtents.y , halfExtents.z * 2, 10); //윗면, 아랫면, 높이
     var cylinderShape = new CANNON.Cylinder(size,size,2*size,10);
     var cylinderBody = new CANNON.Body({ mass: mass });
-    var cylMesh = new THREE.Mesh(cylGeometry, material);
+    var cylMesh = new THREE.Mesh(cylGeometry, material5);
     cylinderBody.addShape(cylinderShape);
     cylinderBody.position.set(-5,5,-15);
     cylinderBody.fixedRotation = true;
@@ -169,11 +244,10 @@ function init4() {
     cylinders.push(cylinderBody);
     cylMeshes.push(cylMesh);
 
-
     //right box1
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material);
+    var boxMesh = new THREE.Mesh(boxGeometry, material4);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(5, 1, -15);
@@ -187,7 +261,7 @@ function init4() {
     //right box2
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material);
+    var boxMesh = new THREE.Mesh(boxGeometry, material4);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(5, 1, -13);
@@ -201,7 +275,7 @@ function init4() {
     //right red box
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material3);
+    var boxMesh = new THREE.Mesh(boxGeometry, material2);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(5, 3, -15);
@@ -215,7 +289,7 @@ function init4() {
     // right cylinder
     var cylinderShape = new CANNON.Cylinder(size,size,2*size,10);
     var cylinderBody = new CANNON.Body({ mass: mass });
-    var cylMesh = new THREE.Mesh(cylGeometry, material);
+    var cylMesh = new THREE.Mesh(cylGeometry, material5);
     cylinderBody.addShape(cylinderShape);
     cylinderBody.position.set(5,5,-15);
     cylinderBody.fixedRotation = true;
@@ -233,7 +307,7 @@ function init4() {
     var boxGeometry = new THREE.BoxGeometry(halfExtents.x * 2, halfExtents.y * 2, halfExtents.z * 2);
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material);
+    var boxMesh = new THREE.Mesh(boxGeometry, material5);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(0.7, 2, -15);
@@ -250,7 +324,7 @@ function init4() {
     var boxGeometry = new THREE.BoxGeometry(halfExtents.x * 2, halfExtents.y * 2, halfExtents.z * 2);
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material);
+    var boxMesh = new THREE.Mesh(boxGeometry, material5);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(-0.7, 2, -15);
@@ -267,7 +341,7 @@ function init4() {
     var boxGeometry = new THREE.BoxGeometry(halfExtents.x * 2, halfExtents.y * 2, halfExtents.z * 2);
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material);
+    var boxMesh = new THREE.Mesh(boxGeometry, material4);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(0, 5, -15);
@@ -277,13 +351,14 @@ function init4() {
     boxMesh.receiveShadow = true;
     boxes.push(boxBody);
     boxMeshes.push(boxMesh);
+
     // long box
     var halfExtents = new CANNON.Vec3(7, 0.5, 2);
     var boxShape = new CANNON.Box(halfExtents);
     var boxGeometry = new THREE.BoxGeometry(halfExtents.x * 2, halfExtents.y * 2, halfExtents.z * 2);
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
-    var boxMesh = new THREE.Mesh(boxGeometry, material);
+    var boxMesh = new THREE.Mesh(boxGeometry, material3);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(0, 6.5, -15);
@@ -305,7 +380,7 @@ function init4() {
     for(var i=0; i<N; i++){
       var boxbody = new CANNON.Body({ mass: mass });
       boxbody.addShape(boxShape);
-      var boxMesh = new THREE.Mesh(boxGeometry, material);
+      var boxMesh = new THREE.Mesh(boxGeometry, material3);
       boxbody.position.set(-5, 5, -13);
       boxbody.linearDamping = 0.01;
       boxbody.angularDamping = 0.01;
@@ -339,7 +414,7 @@ function init4() {
     for(var i=0; i<N; i++){
         var boxbody = new CANNON.Body({ mass: mass });
         boxbody.addShape(boxShape);
-        var boxMesh = new THREE.Mesh(boxGeometry, material);
+        var boxMesh = new THREE.Mesh(boxGeometry, material3);
         boxbody.position.set(5, 5, -13);
         boxbody.linearDamping = 0.01;
         boxbody.angularDamping = 0.01;
