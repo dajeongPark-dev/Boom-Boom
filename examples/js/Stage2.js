@@ -1,55 +1,7 @@
 function stage2() {
-    //initCannon2();
+    
     init2(); // 옮기기
     animate2();
-}
-function initCannon2() {
-    // Setup our world
-    world = new CANNON.World();
-    world.quatNormalizeSkip = 0;
-    world.quatNormalizeFast = false;
-    var solver = new CANNON.GSSolver();
-    world.defaultContactMaterial.contactEquationStiffness = 5e8;
-    world.defaultContactMaterial.contactEquationRelaxation = 10;
-    solver.iterations = 7;
-    solver.tolerance = 0.1;
-    var split = true;
-    if (split)
-        world.solver = new CANNON.SplitSolver(solver);
-    else
-        world.solver = solver;
-    world.gravity.set(0, -5, 0);
-    // 중력 조절
-    world.broadphase = new CANNON.NaiveBroadphase();
-    // Create a slippery material (friction coefficient = 0.0)
-    physicsMaterial = new CANNON.Material("slipperyMaterial");
-    var physicsContactMaterial = new CANNON.ContactMaterial(physicsMaterial,
-        physicsMaterial,
-        0.0,// friction coefficient
-        0.3 // restitution
-        
-    );
-    // We must add the contact materials to the world
-    world.addContactMaterial(physicsContactMaterial);
-    
-    // Create a sphere
-    var mass = 5, radius = 1.3;
-    sphereShape = new CANNON.Sphere(radius);
-    sphereBody = new CANNON.Body({ mass: mass });
-    sphereBody.addShape(sphereShape);
-    sphereBody.position.set(0, 5, 0);
-    sphereBody.linearDamping = 0.9;
-    
-    world.addBody(sphereBody);
-    // Create a plane
-    var groundShape = new CANNON.Plane();
-    var groundBody = new CANNON.Body({ mass: 0 });
-    groundBody.addShape(groundShape);
-    groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-  
-    world.addBody(groundBody);
-
-    
 }
 function init2() {
 
@@ -100,8 +52,22 @@ function init2() {
     var groundBody = new CANNON.Body({ mass: 0 });
     groundBody.addShape(groundShape);
     groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-    
     world.addBody(groundBody);
+
+    // var groundGeo = new THREE.PlaneGeometry();
+    // var grassTex = THREE.ImageUtils.loadTexture('images_stage/grass.png'); 
+    // grassTex.wrapS = THREE.RepeatWrapping; 
+    // grassTex.wrapT = THREE.RepeatWrapping; 
+    // grassTex.repeat.x = 1; 
+    // grassTex.repeat.y = 1;
+    // var groundMat = new THREE.MeshBasicMaterial({map:grassTex}); 
+    // var ground = new THREE.Mesh(groundGeo,groundMat); 
+    // ground.position.y = -new CANNON.Vec3(1, 0, 0); //lower it 
+    // ground.rotation.x = -Math.PI/2; //-90 degrees around the xaxis 
+    // //IMPORTANT, draw on both sides 
+    // ground.doubleSided = true; 
+    // scene.add(ground); 
+
 
 
     var ambient = new THREE.AmbientLight(0x111111);
@@ -122,25 +88,8 @@ function init2() {
     }
     scene.add(light);
 
-    // var texture, material, plane;
 
-    // texture = THREE.ImageUtils.loadTexture( "images_stage/grass.png" );
-
-    // // assuming you want the texture to repeat in both directions:
-    // texture.wrapS = THREE.RepeatWrapping; 
-    // texture.wrapT = THREE.RepeatWrapping;
-
-    // // how many times to repeat in each direction; the default is (1,1),
-    // //   which is probably why your example wasn't working
-    // texture.repeat.set( 4, 4 ); 
-
-    // material = new THREE.MeshLambertMaterial({ map : texture });
-    // plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 3500), material);
-    // plane.material.side = THREE.DoubleSide;
-    // plane.position.x = 100;
-    // plane.rotation.z = Math.PI / 2;
-
-    // scene.add(plane);
+    
 
     controls = new PointerLockControls(camera, sphereBody);
     scene.add(controls.getObject());
@@ -372,21 +321,21 @@ function init2() {
     // boxes.push(boxBody);
     // boxMeshes.push(boxMesh);
 
-    // var cylinderShape = new CANNON.Cylinder( 0.5, 0.5, 0.5*2.2,32);
-    // var CylinderGeometry = new THREE.CylinderGeometry(0.5 * 2, 0.5* 2, 0.5*2.2 * 2,64);    
-    // var cylinderBody = new CANNON.Body({mass : 1});
-    // cylinderBody.addShape(cylinderShape);
-    // var cylinderMesh = new THREE.Mesh( CylinderGeometry, material3 );
-    // world.addBody(cylinderBody);
-    // scene.add(cylinderMesh);
-    // cylinderBody.position.set(-5,1,-5);
+    var cylinderShape = new CANNON.Cylinder( 0.5, 0.5, 0.5*2.2,32);
+    var CylinderGeometry = new THREE.CylinderGeometry(0.5 * 2, 0.5* 2, 0.5*2.2 * 2,64);    
+    var cylinderBody = new CANNON.Body({mass : 1});
+    cylinderBody.addShape(cylinderShape);
+    var cylinderMesh = new THREE.Mesh( CylinderGeometry, material3 );
+    world.addBody(cylinderBody);
+    scene.add(cylinderMesh);
+    cylinderBody.position.set(-5,1,-5);
    
-    // cylinderBody.fixedRotation = true;
-    // cylinderMesh.position.set(-5,1,-5);
-    // cylinderMesh.castShadow = true;
-    // cylinderMesh.receiveShadow = true;
-    // boxes.push(cylinderBody);
-    // boxMeshes.push(cylinderMesh);
+    cylinderBody.fixedRotation = true;
+    cylinderMesh.position.set(-5,1,-5);
+    cylinderMesh.castShadow = true;
+    cylinderMesh.receiveShadow = true;
+    boxes.push(cylinderBody);
+    boxMeshes.push(cylinderMesh);
 
 
     // // Add linked boxes
