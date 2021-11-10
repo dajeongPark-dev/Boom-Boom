@@ -18,7 +18,7 @@ function initCannon4() {
         world.solver = new CANNON.SplitSolver(solver);
     else
         world.solver = solver;
-    world.gravity.set(0, -20, 0);
+    world.gravity.set(0, -10, 0);
     world.broadphase = new CANNON.NaiveBroadphase();
     // Create a slippery material (friction coefficient = 0.0)
     physicsMaterial = new CANNON.Material("slipperyMaterial");
@@ -47,7 +47,7 @@ function initCannon4() {
 function init4() {
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x000000, 0, 500);
+    scene.fog = new THREE.Fog(0x574DAB, 0, 500);
     var ambient = new THREE.AmbientLight(0x111111);
     scene.add(ambient);
     light = new THREE.SpotLight(0xffffff);
@@ -71,10 +71,29 @@ function init4() {
     // floor
     geometry = new THREE.PlaneGeometry(300, 300, 50, 50);
     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-    material = new THREE.MeshLambertMaterial({ color: 0xdddddd });
+
+    // materials = [];
+    // for (var i=1; i<4; i++) {
+    //     var loader = new THREE.TextureLoader();
+    //
+    //     var texture = loader.load('tree_texture' + i + '.jpg');
+    //     materials.push(new THREE.MeshBasicMaterial({
+    //         map: texture, side: THREE.DoubleSide
+    //     }))
+    // }
+
+
+    var clothTexture = THREE.ImageUtils.loadTexture( 'sunflower.jpg' ); // circuit_pattern.png
+    clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
+    clothTexture.anisotropy = 16;
+
+
+    material = new THREE.MeshLambertMaterial({ color: 0xDDDDDD });
+    material_ground = new THREE.MeshLambertMaterial({ color: 0xB1ECAB });
     material2 = new THREE.MeshLambertMaterial({ color: 0x9999 });
     material3 = new THREE.MeshLambertMaterial({ color: 0xff1111 });
-    mesh = new THREE.Mesh(geometry, material);
+
+    mesh = new THREE.Mesh(geometry, material_ground);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
     scene.add(mesh);

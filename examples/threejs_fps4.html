@@ -100,6 +100,7 @@
         var reset_state = false;
         var camera, scene, renderer;
         var geometry, material, mesh;
+        var materials = [];
         var controls, time = Date.now();
         var blocker = document.getElementById('blocker');
         var instructions = document.getElementById('instructions');
@@ -194,7 +195,7 @@
             power.innerHTML = shootVelo;
             num_try = num_try + 1;
             console.log(num_try)
-            if (controls.enabled == true && num_try < 50) {
+            if (controls.enabled == true && num_try < 7) {
                 var x = sphereBody.position.x;
                 var y = sphereBody.position.y;
                 var z = sphereBody.position.z;
