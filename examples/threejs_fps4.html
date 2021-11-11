@@ -75,6 +75,37 @@
             text-align: center;
             cursor: pointer;
         }
+        /*.failed1 span {*/
+        /*    display: inline-block;*/
+        /*    margin: 0 -.05em;*/
+        /*    animation: loading .7s infinite;*/
+        /*}*/
+        /*.failed1 span:nth-child(2) {*/
+        /*    animation-delay: .1s;*/
+        /*}*/
+        /*.failed1 span:nth-child(3) {*/
+        /*    animation-delay: .2s;*/
+        /*}*/
+        /*.failed1 span:nth-child(4) {*/
+        /*    animation-delay: .3s;*/
+        /*}*/
+        /*.failed1 span:nth-child(5) {*/
+        /*    animation-delay: .4s;*/
+        /*}*/
+        /*.failed1 span:nth-child(6) {*/
+        /*    animation-delay: .5s;*/
+        /*}*/
+        /*.failed1 span:nth-child(7) {*/
+        /*    animation-delay: .6s;*/
+        /*}*/
+        /*@keyframes failed1 {*/
+        /*    0%, 100% {*/
+        /*        transform: translateY(0);*/
+        /*    }*/
+        /*    50% {*/
+        /*        transform: translateY(15px);*/
+        /*    }*/
+        /*}*/
     </style>
 
 </head>
@@ -95,10 +126,7 @@
     <script src="js/Stage4.js"></script>
 
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r69/examples/js/loaders/ColladaLoader.js"></script>
-<<<<<<< HEAD
 
-=======
->>>>>>> 63ad5000120b9ac90d9b96739219bcef65aacc06
     <script>var num_try;</script>
     <div id="blocker">
         <div id="instructions">
@@ -110,19 +138,19 @@
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
             <button class="done" onClick='self.close()'> START </button>
         </div>
-        <div id="success">
-            <span style="font-size:40px">Success!</span>
+        <div id="failed">
+            <span style="font-size:40px">Failed!</span>
             <br />
-            Enjoy next games!
+            Try again?
             <br />
             <button class="next" onClick="location.href='threejs_fps5.html'"> Next Stage</button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
             <button class="done" onClick='self.close()'> START </button>
         </div>
-        <div id="failed">
-            <span style="font-size:40px">Failed!</span>
+        <div id="success">
+            <span style="font-size:40px">Success!</span>
             <br />
-            Try again?
+            Enjoy next games!
             <br />
             <button class="next" onClick="location.href='threejs_fps5.html'"> Next Stage</button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
@@ -187,55 +215,57 @@
             instructions.addEventListener('click', function (event) {
 
                 var loader = new THREE.ColladaLoader();
-    loader.options.convertUpAxis = true;
-    loader.load('js/Cannon/model.dae', function(collada) {
-    // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
-    // scene.add(collada.scene);
-    
-    dae = collada.scene;
-    
-   // var skin = collada.skins[0];
-   // dae.position.set(0, 0, 0);
+                    loader.options.convertUpAxis = true;
+                    loader.load('js/Cannon/model1.dae', function(collada) {
+                    // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
+                    // scene.add(collada.scene);
 
-    
-    
-    dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
-    dae.position.set(0, -1.1, 0);
+                    dae = collada.scene;
 
-    
-    var scope = this;
-    var PI_2 = Math.PI * 2;
-    var onMouseMoveForCannon = function (event) {
-
-        if (scope.enabled === false) return;
-
-        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
-
-        dae.rotation.y -= movementX * 0.002;
-        dae.rotation.x -= movementY * 0.002;
-        dae.rotation.z -= movementZ * 0.002;
-
-        dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
-        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
-        //dae.rotation.z = Math.max(-PI_2, Math.min(PI_2, dae.rotation.z));
-        dae.updateMatrix();
-    
-    
-        scene.add(dae);
-
-
-    };
-    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+                   // var skin = collada.skins[0];
+                   // dae.position.set(0, 0, 0);
 
 
 
-    
-    }); 
+                    dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
+                    dae.position.set(0, -1.1, 0);
+
+
+                    var scope = this;
+                    var PI_2 = Math.PI * 2;
+                    var onMouseMoveForCannon = function (event) {
+
+                        if (scope.enabled === false) return;
+
+                        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+                        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+                        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
+
+                        dae.rotation.y -= movementX * 0.002;
+                        dae.rotation.x -= movementY * 0.002;
+                        dae.rotation.z -= movementZ * 0.002;
+
+                        dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
+                        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
+                        //dae.rotation.z = Math.max(-PI_2, Math.min(PI_2, dae.rotation.z));
+                        dae.updateMatrix();
+
+
+                        scene.add(dae);
+
+
+                    };
+                    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+
+
+
+
+                    });
 
 
                 instructions.style.display = 'none';
+                success.style.display='none';
+                failed.style.display='none';
                 // Ask the browser to lock the pointer
                 element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
                 if (/Firefox/i.test(navigator.userAgent)) {
@@ -335,13 +365,15 @@
                 shootVelo = 5;
             }
             else {
-                if(stage_clear === false){
+                if(stage_clear === false&& num_try >= 5){
                     controls.enabled = false;
                     blocker.style.display = '-webkit-box';
                     blocker.style.display = '-moz-box';
                     blocker.style.display = 'box';
-                    success.style.display='hidden';
+                    // success.style.display='hidden';
+                    console.log('failed가 안나오고 success 낭모;;')
                     failed.style.display = '';
+                    // document.exitPointerLock();
                 }
                 console.log("out of ball");
             }
@@ -355,7 +387,8 @@
                 blocker.style.display = '-webkit-box';
                 blocker.style.display = '-moz-box';
                 blocker.style.display = 'box';
-                instructions.style.display = '';
+                failed.style.display='hidden';
+                success.style.display = '';
             }
             //clear 화면 없애기
             if (stage_clear === true) {
