@@ -314,6 +314,15 @@
                 shootVelo = 5;
             }
             else {
+                if(stage_clear === false&& num_try >= 5){
+                    controls.enabled = false;
+                    blocker.style.display = '-webkit-box';
+                    blocker.style.display = '-moz-box';
+                    blocker.style.display = 'box';
+                    instructions.style.display = '';
+                    text.innerHTML="Fail!!"
+                    document.exitPointerLock();
+                }
                 console.log("out of ball");
             }
         });

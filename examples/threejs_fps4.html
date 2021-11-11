@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-
-
 <head>
 
     <meta charset="utf-8">
@@ -56,6 +54,7 @@
             width: 2%;
             transform: translate(-50%, -50%);
         }
+
         #instructions{
             width: 100%;
             height: 100%;
@@ -75,6 +74,37 @@
             text-align: center;
             cursor: pointer;
         }
+        /*.failed1 span {*/
+        /*    display: inline-block;*/
+        /*    margin: 0 -.05em;*/
+        /*    animation: loading .7s infinite;*/
+        /*}*/
+        /*.failed1 span:nth-child(2) {*/
+        /*    animation-delay: .1s;*/
+        /*}*/
+        /*.failed1 span:nth-child(3) {*/
+        /*    animation-delay: .2s;*/
+        /*}*/
+        /*.failed1 span:nth-child(4) {*/
+        /*    animation-delay: .3s;*/
+        /*}*/
+        /*.failed1 span:nth-child(5) {*/
+        /*    animation-delay: .4s;*/
+        /*}*/
+        /*.failed1 span:nth-child(6) {*/
+        /*    animation-delay: .5s;*/
+        /*}*/
+        /*.failed1 span:nth-child(7) {*/
+        /*    animation-delay: .6s;*/
+        /*}*/
+        /*@keyframes failed1 {*/
+        /*    0%, 100% {*/
+        /*        transform: translateY(0);*/
+        /*    }*/
+        /*    50% {*/
+        /*        transform: translateY(15px);*/
+        /*    }*/
+        /*}*/
     </style>
 
 </head>
@@ -95,10 +125,7 @@
     <script src="js/Stage4.js"></script>
 
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r69/examples/js/loaders/ColladaLoader.js"></script>
-<<<<<<< HEAD
 
-=======
->>>>>>> 63ad5000120b9ac90d9b96739219bcef65aacc06
     <script>var num_try;</script>
     <div id="blocker">
         <div id="instructions">
@@ -109,10 +136,6 @@
             <button class="next" onClick="location.href='threejs_fps5.html'"> Next Stage</button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
             <button class="done" onClick='self.close()'> START </button>
-        </div>
-        <div id="success">
-            <span style="font-size:40px">Stage4 Clear!</span>
-
         </div>
     </div>
     <div id='power'>0</div>
@@ -125,6 +148,7 @@
                     <td><img id='ball2' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
                     <td><img id='ball3' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
                 </tr>
+            </table>
         </div>
     </div>
     <script>
@@ -169,6 +193,7 @@
             instructions.addEventListener('click', function (event) {
 
                 var loader = new THREE.ColladaLoader();
+<<<<<<< HEAD
     loader.options.convertUpAxis = true;
 
     var custom=JSON.parse(localStorage.getItem('color'));
@@ -182,43 +207,52 @@
     
    // var skin = collada.skins[0];
    // dae.position.set(0, 0, 0);
+=======
+                    loader.options.convertUpAxis = true;
+                    loader.load('js/Cannon/model_red.dae', function(collada) {
+                    // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
+                    // scene.add(collada.scene);
 
-    
-    
-    dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
-    dae.position.set(0, -1.1, 0);
+                    dae = collada.scene;
 
-    
-    var scope = this;
-    var PI_2 = Math.PI * 2;
-    var onMouseMoveForCannon = function (event) {
-
-        if (scope.enabled === false) return;
-
-        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
-
-        dae.rotation.y -= movementX * 0.002;
-        dae.rotation.x -= movementY * 0.002;
-        dae.rotation.z -= movementZ * 0.002;
-
-        dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
-        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
-        //dae.rotation.z = Math.max(-PI_2, Math.min(PI_2, dae.rotation.z));
-        dae.updateMatrix();
-    
-    
-        scene.add(dae);
+                   // var skin = collada.skins[0];
+                   // dae.position.set(0, 0, 0);
 
 
-    };
-    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+>>>>>>> 17c4dfdb46aa46e0e2615357e7f5b6f3611206ad
+
+                    dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
+                    dae.position.set(0, -1.1, 0);
 
 
+                    var scope = this;
+                    var PI_2 = Math.PI * 2;
+                    var onMouseMoveForCannon = function (event) {
 
-    
-    }); 
+                        if (scope.enabled === false) return;
+
+                        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+                        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+                        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
+
+                        dae.rotation.y -= movementX * 0.002;
+                        dae.rotation.x -= movementY * 0.002;
+                        dae.rotation.z -= movementZ * 0.002;
+
+                        dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
+                        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
+                        //dae.rotation.z = Math.max(-PI_2, Math.min(PI_2, dae.rotation.z));
+                        dae.updateMatrix();
+
+
+                        scene.add(dae);
+
+
+                    };
+                    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+
+
+                    });
 
 
                 instructions.style.display = 'none';
@@ -321,6 +355,15 @@
                 shootVelo = 5;
             }
             else {
+                if(stage_clear === false&& num_try >= 5){
+                    controls.enabled = false;
+                    blocker.style.display = '-webkit-box';
+                    blocker.style.display = '-moz-box';
+                    blocker.style.display = 'box';
+                    instructions.style.display = '';
+                    text.innerHTML="Fail!!"
+                    document.exitPointerLock();
+                }
                 console.log("out of ball");
             }
         });
@@ -335,6 +378,7 @@
                 blocker.style.display = 'box';
                 text.innerHTML="Clear Stage4!!"
                 instructions.style.display = '';
+
             }
             //clear 화면 없애기
             if (stage_clear === true) {

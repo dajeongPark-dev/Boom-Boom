@@ -50,6 +50,14 @@
         visibility: hidden;
         }
 
+        #num_ball{
+            position: absolute;
+            top: 8%;
+            margin: 20px;
+            width: 2%;
+            transform: translate(-50%, -50%);
+        }
+
         #instructions{
             width: 100%;
             height: 100%;
@@ -111,8 +119,17 @@
         </div>
     </div>
     <div id='power'>0</div>
-	    <div id="game_hud">
+    <div id="game_hud">
       <img id="crosshair" src="images_stage/crosshair.png" />
+        <div id="num_ball">
+            <table>
+                <tr>
+                    <td><img id='ball1' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
+                    <td><img id='ball2' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
+                    <td><img id='ball3' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
+                </tr>
+            </table>
+        </div>
     </div>
     <script>
         var sphereShape, sphereBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [];
@@ -266,6 +283,17 @@
             console.log(shootVelo);
             power.innerHTML = shootVelo;
             num_try = num_try + 1;
+            switch (num_try){
+                case 2:
+                    document.getElementById("ball3").style.visibility = 'hidden';
+                    break;
+                case 3:
+                    document.getElementById("ball2").style.visibility = 'hidden';
+                    break;
+                case 4:
+                    document.getElementById("ball1").style.visibility = 'hidden';
+                    break;
+            }
             console.log(num_try)
             if (controls.enabled == true && num_try < 5) {
                 var x = sphereBody.position.x;
@@ -294,6 +322,15 @@
                 shootVelo = 5;
             }
             else {
+                if(stage_clear === false&& num_try >= 5){
+                    controls.enabled = false;
+                    blocker.style.display = '-webkit-box';
+                    blocker.style.display = '-moz-box';
+                    blocker.style.display = 'box';
+                    instructions.style.display = '';
+                    text.innerHTML="Fail!!"
+                    document.exitPointerLock();
+                }
                 console.log("out of ball");
             }
         });
