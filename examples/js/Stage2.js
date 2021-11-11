@@ -338,21 +338,21 @@ function init2() {
     // boxes.push(boxBody);
     // boxMeshes.push(boxMesh);
 
-    var cylinderShape = new CANNON.Cylinder(0.5, 0.5, 0.5 * 2.2, 32);
-    var CylinderGeometry = new THREE.CylinderGeometry(0.5 * 2, 0.5 * 2, 0.5 * 2.2 * 2, 64);
-    var cylinderBody = new CANNON.Body({ mass: 1 });
-    cylinderBody.addShape(cylinderShape);
-    var cylinderMesh = new THREE.Mesh(CylinderGeometry, material3);
-    world.addBody(cylinderBody);
-    scene.add(cylinderMesh);
-    cylinderBody.position.set(-5, 1, -5);
+    // var cylinderShape = new CANNON.Cylinder(0.5, 0.5, 0.5 * 2.2, 32);
+    // var CylinderGeometry = new THREE.CylinderGeometry(0.5 * 2, 0.5 * 2, 0.5 * 2.2 * 2, 64);
+    // var cylinderBody = new CANNON.Body({ mass: 1 });
+    // cylinderBody.addShape(cylinderShape);
+    // var cylinderMesh = new THREE.Mesh(CylinderGeometry, material3);
+    // world.addBody(cylinderBody);
+    // scene.add(cylinderMesh);
+    // cylinderBody.position.set(-5, 1, -5);
 
-    cylinderBody.fixedRotation = true;
-    cylinderMesh.position.set(-5, 1, -5);
-    cylinderMesh.castShadow = true;
-    cylinderMesh.receiveShadow = true;
-    cylinders.push(cylinderBody);
-    cylMeshes.push(cylinderMesh);
+    // cylinderBody.fixedRotation = true;
+    // cylinderMesh.position.set(-5, 1, -5);
+    // cylinderMesh.castShadow = true;
+    // cylinderMesh.receiveShadow = true;
+    // cylinders.push(cylinderBody);
+    // cylMeshes.push(cylinderMesh);
 
 
     // // Add linked boxes
