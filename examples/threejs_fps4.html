@@ -170,7 +170,11 @@
 
                 var loader = new THREE.ColladaLoader();
     loader.options.convertUpAxis = true;
-    loader.load('js/Cannon/model.dae', function(collada) {
+
+    var custom=JSON.parse(localStorage.getItem('color'));
+    console.log(custom);
+
+    loader.load(custom, function(collada) {
     // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
     // scene.add(collada.scene);
     
