@@ -84,6 +84,7 @@
     <script src="js/Stage1.js"></script>
 
     <script src="js/Stage2.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/r69/examples/js/loaders/ColladaLoader.js"></script>
 
     <script>var num_try;</script>
     <div id="blocker">
@@ -110,6 +111,7 @@
         var stage_clear = false;
         var reset_state = false;
         var camera, scene, renderer;
+        var cannon;
         var geometry, material, mesh;
         var controls, time = Date.now();
         var blocker = document.getElementById('blocker');
