@@ -127,6 +127,7 @@
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r69/examples/js/loaders/ColladaLoader.js"></script>
 
     <script>var num_try;</script>
+
     <div id="blocker">
         <div id="instructions">
             <span id='text' style="font-size:36px">Stage 4 <br />
@@ -194,7 +195,7 @@
 
                 var loader = new THREE.ColladaLoader();
                     loader.options.convertUpAxis = true;
-                    loader.load('js/Cannon/model_red.dae', function(collada) {
+                    loader.load('js/Cannon/model.dae', function(collada) {
                     // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
                     // scene.add(collada.scene);
 

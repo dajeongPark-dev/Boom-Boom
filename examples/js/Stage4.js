@@ -112,14 +112,6 @@ function init4() {
         bumpScale: 0.03
     })
 
-    var texture5 = THREE.ImageUtils.loadTexture('images_stage/ansdid2.png');
-    // texture5.wrapS = texture5.wrapT = THREE.RepeatWrapping;
-    // texture5.repeat.set( 50, 50);
-    var material6 = new THREE.MeshPhongMaterial({
-        map	: texture5,
-        bumpMap	: texture5,
-        bumpScale: 0.3
-    })
 
     mesh = new THREE.Mesh(geometry, material_ground);
     mesh.castShadow = true;

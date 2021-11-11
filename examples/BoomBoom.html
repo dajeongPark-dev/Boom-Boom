@@ -97,7 +97,6 @@
 </head>
 
 <body>
-
     <!-- Header Section -->
     <header>
         <div class="head1">
@@ -140,6 +139,12 @@
                 Enjoy the game :)
             </p>
         </section>
+        <section id="Cannon">
+            <h3 class="headline">Cannon</h3>
+            <button id="black" onclick="cannon_color(0);">black</button>
+            <button id="red" onclick="cannon_color(1);">red</button>
+            <button id="yellow" onclick="cannon_color(2);">yellow</button>
+        </section>
         <section id="Stage">
             <h3 class="headline">Stage</h3>
             <span>
@@ -155,11 +160,21 @@
                     <a href="threejs_fps5.html"><img class="btn_stage_img" src="images_stage/image_stage5.png"
                             alt="버튼 stage 5" /></a>
                 </span>
+            </span>
         </section>
     </div>
+    <script>
+        var colors=['black','red','yellow'];
+        var color = colors[0];
+        function cannon_color(i){
+            color= colors[i];
+            console.log(color);
+        }
 
+    </script>
     <!-- Footer Section -->
     <!-- <footer>Footer Section</footer> -->
 </body>
 
 </html>
+
