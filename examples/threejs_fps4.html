@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-
-
 <head>
 
     <meta charset="utf-8">
@@ -57,7 +55,8 @@
             transform: translate(-50%, -50%);
         }
         #instructions,
-        #success {
+        #success,
+        #failed{
             width: 100%;
             height: 100%;
             display: -webkit-box;
@@ -108,8 +107,22 @@
             <button class="done" onClick='self.close()'> START </button>
         </div>
         <div id="success">
-            <span style="font-size:40px">Stage4 Clear!</span>
-
+            <span style="font-size:40px">Success!</span>
+            <br />
+            Enjoy next games!
+            <br />
+            <button class="next" onClick="location.href='threejs_fps5.html'"> Next Stage</button>
+            <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
+            <button class="done" onClick='self.close()'> START </button>
+        </div>
+        <div id="failed">
+            <span style="font-size:40px">Failed!</span>
+            <br />
+            Try again?
+            <br />
+            <button class="next" onClick="location.href='threejs_fps5.html'"> Next Stage</button>
+            <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
+            <button class="done" onClick='self.close()'> START </button>
         </div>
     </div>
     <div id='power'>0</div>
@@ -122,6 +135,7 @@
                     <td><img id='ball2' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
                     <td><img id='ball3' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
                 </tr>
+            </table>
         </div>
     </div>
     <script>
@@ -135,6 +149,7 @@
         var blocker = document.getElementById('blocker');
         var instructions = document.getElementById('instructions');
         var success = document.getElementById('success');
+        var failed = document.getElementById('failed');
         // var next = document.getElementById("next");
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
@@ -266,6 +281,14 @@
                 shootVelo = 5;
             }
             else {
+                if(stage_clear === false){
+                    controls.enabled = false;
+                    blocker.style.display = '-webkit-box';
+                    blocker.style.display = '-moz-box';
+                    blocker.style.display = 'box';
+                    success.style.display='hidden';
+                    failed.style.display = '';
+                }
                 console.log("out of ball");
             }
         });
