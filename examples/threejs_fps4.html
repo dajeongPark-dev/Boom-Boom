@@ -132,7 +132,7 @@
         <div id="instructions">
             <span id='text' style="font-size:36px">Stage 4 <br />
             If you fall green block, stage cleared!</span>
-           
+
             <br />
             <button class="next" onClick="location.href='threejs_fps5.html'"> Next Stage</button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
@@ -192,39 +192,22 @@
             document.addEventListener('mozpointerlockerror', pointerlockerror, false);
             document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
             instructions.addEventListener('click', function (event) {
-
                 var loader = new THREE.ColladaLoader();
-<<<<<<< HEAD
-    loader.options.convertUpAxis = true;
+                loader.options.convertUpAxis = true;
 
-    var custom=JSON.parse(localStorage.getItem('color'));
-    console.log(custom);
+                var custom=JSON.parse(localStorage.getItem('color'));
+                console.log(custom);
 
-    loader.load(custom, function(collada) {
-    // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
-    // scene.add(collada.scene);
-    
-    dae = collada.scene;
-    
-   // var skin = collada.skins[0];
-   // dae.position.set(0, 0, 0);
-=======
-                    loader.options.convertUpAxis = true;
-                    loader.load('js/Cannon/model.dae', function(collada) {
-                    // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
-                    // scene.add(collada.scene);
+                loader.load(custom, function(collada) {
+                // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
+                // scene.add(collada.scene);
 
                     dae = collada.scene;
 
-                   // var skin = collada.skins[0];
-                   // dae.position.set(0, 0, 0);
-
-
->>>>>>> 17c4dfdb46aa46e0e2615357e7f5b6f3611206ad
-
+                    // var skin = collada.skins[0];
+                    // dae.position.set(0, 0, 0);
                     dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
                     dae.position.set(0, -1.1, 0);
-
 
                     var scope = this;
                     var PI_2 = Math.PI * 2;
@@ -377,7 +360,7 @@
                 blocker.style.display = '-webkit-box';
                 blocker.style.display = '-moz-box';
                 blocker.style.display = 'box';
-                text.innerHTML="Clear Stage4!!"
+                text.innerHTML = "Clear Stage4!!"
                 instructions.style.display = '';
 
             }
@@ -402,8 +385,9 @@
                     //stageStage++;
                 });
             }
-
         }
+
+
     </script>
 
 </body>
