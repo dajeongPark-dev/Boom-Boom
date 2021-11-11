@@ -105,6 +105,10 @@
     </header>
 
     <!-- Menu Navigation Bar -->
+    <div class="customize">
+       <button id="C" onclick="C_click();">Customize</button>
+    </div>
+
     <div class="menu">
         <!-- <a href="#home">HOME</a>
 		<a href="#news">NEWS</a>
@@ -174,6 +178,47 @@
     </script>
     <!-- Footer Section -->
     <!-- <footer>Footer Section</footer> -->
+
+    <script>
+        var count=0;
+        var color='js/Cannon/model.dae';
+
+        function C_click(){
+            count++;
+            if(count%7==1){
+                color='js/Cannon/model1.dae';
+                console.log(color);
+            }
+            else if(count%7==2){
+                color='js/Cannon/model2.dae';
+                console.log(color);
+            }
+            else if(count%7==3){
+                color='js/Cannon/model3.dae';
+                console.log(color);
+            }
+            else if(count%7==4){
+                color='js/Cannon/model4.dae';
+                console.log(color);
+            }
+            else if(count%7==5){
+                color='js/Cannon/model5.dae';
+                console.log(color);
+            }
+            else if(count%7==6){
+                color='js/Cannon/model6.dae';
+                console.log(color);
+            }
+            else if(count%7==0){
+                color='js/Cannon/model.dae';
+                console.log(color);
+            }
+
+            localStorage.setItem('color',JSON.stringify(color));
+        }
+
+    </script>
+
 </body>
 
 </html>

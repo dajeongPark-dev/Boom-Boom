@@ -194,6 +194,21 @@
             instructions.addEventListener('click', function (event) {
 
                 var loader = new THREE.ColladaLoader();
+<<<<<<< HEAD
+    loader.options.convertUpAxis = true;
+
+    var custom=JSON.parse(localStorage.getItem('color'));
+    console.log(custom);
+
+    loader.load(custom, function(collada) {
+    // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
+    // scene.add(collada.scene);
+    
+    dae = collada.scene;
+    
+   // var skin = collada.skins[0];
+   // dae.position.set(0, 0, 0);
+=======
                     loader.options.convertUpAxis = true;
                     loader.load('js/Cannon/model.dae', function(collada) {
                     // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
@@ -205,6 +220,7 @@
                    // dae.position.set(0, 0, 0);
 
 
+>>>>>>> 17c4dfdb46aa46e0e2615357e7f5b6f3611206ad
 
                     dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
                     dae.position.set(0, -1.1, 0);

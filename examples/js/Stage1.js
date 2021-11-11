@@ -99,23 +99,7 @@ function init1() {
         halfExtents.y * 2,
         halfExtents.z * 2
     );
-    // for(var i=0; i<7; i++){
-    //   var x = (Math.random()-0.5)*20;
-    //   var y = 1 + (Math.random()-0.5)*1;
-    //   var z = (Math.random()-0.5)*20;
-    //
-    //   var boxBody = new CANNON.Body({ mass: 5 });
-    //   boxBody.addShape(boxShape);
-    //   var boxMesh = new THREE.Mesh( boxGeometry, material );
-    //   world.addBody(boxBody);
-    //   scene.add(boxMesh);
-    //   boxBody.position.set(x,y,z);
-    //   boxMesh.position.set(x,y,z);
-    //   boxMesh.castShadow = true;
-    //   boxMesh.receiveShadow = true;
-    //   boxes.push(boxBody);
-    //   boxMeshes.push(boxMesh);
-    // }
+
     //left box
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
@@ -180,101 +164,6 @@ function init1() {
     boxes.push(boxBody);
     boxMeshes.push(boxMesh);
 
-
-    / * Mirror */
-    // const groundMirror = new Reflector(new THREE.PlaneBufferGeometry(1024, 1024), {
-    //     color: new THREE.Color(0x222222),
-    //     clipBias: 0.003,
-    //     textureWidth: window.innerWidth * window.devicePixelRatio,
-    //     textureHeight: window.innerHeight * window.devicePixelRatio,
-    // })
-    // groundMirror.position.y = -0.05
-    // groundMirror.rotateX(-Math.PI / 2)
-    // scene.add(groundMirror)
-    //
-    // const planeShape = new CANNON.Plane()
-    // const planeBody = new CANNON.Body({ mass: 0 })
-    // planeBody.addShape(planeShape)
-    // planeBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
-    // world.addBody(planeBody)
-    //
-    // const convexObjectBreaker = new ConvexObjectBreaker()
-    //
-    // for (let i = 0; i < 20; i++) {
-    //     const size = {
-    //         x: Math.random() * 4 + 2,
-    //         y: Math.random() * 10 + 5,
-    //         z: Math.random() * 4 + 2,
-    //     }
-    //     const geo: THREE.BoxBufferGeometry = new THREE.BoxBufferGeometry(
-    //         size.x,
-    //         size.y,
-    //         size.z
-    //     )
-    //     const cube = new THREE.Mesh(geo, material)
-    //
-    //     cube.position.x = Math.random() * 50 - 25
-    //     cube.position.y = size.y / 2 + 0.1
-    //     cube.position.z = Math.random() * 50 - 25
-    //
-    //     scene.add(cube)
-    //     meshes[meshId] = cube
-    //     convexObjectBreaker.prepareBreakableObject(
-    //         meshes[meshId],
-    //         1,
-    //         new THREE.Vector3(),
-    //         new THREE.Vector3(),
-    //         true
-    //     )
-    //
-    //     const cubeShape = new CANNON.Box(
-    //         new CANNON.Vec3(size.x / 2, size.y / 2, size.z / 2)
-    //     )
-    //     const cubeBody = new CANNON.Body({ mass: 1 });
-    //     (cubeBody as any).userData = { splitCount: 0, id: meshId }
-    //     cubeBody.addShape(cubeShape)
-    //     cubeBody.position.x = cube.position.x
-    //     cubeBody.position.y = cube.position.y
-    //     cubeBody.position.z = cube.position.z
-    //
-    //     world.addBody(cubeBody)
-    //     bodies[meshId] = cubeBody
-    //
-    //     meshId++
-    // }
-    // // Add linked boxes
-    // var size = 0.5;
-    // var he = new CANNON.Vec3(size,size,size*0.1);
-    // var boxShape = new CANNON.Box(he);
-    // var mass = 0;
-    // var space = 0.1 * size;
-    // var N = 5, last;
-    // var boxGeometry = new THREE.BoxGeometry(he.x*1,he.y*1,he.z*1);
-    // for(var i=0; i<N; i++){
-    //   var boxbody = new CANNON.Body({ mass: mass });
-    //   boxbody.addShape(boxShape);
-    //   var boxMesh = new THREE.Mesh(boxGeometry, material);
-    //   boxbody.position.set(5,(N-i)*(size*2+2*space) + size*2+space,0);
-    //   boxbody.linearDamping = 0.01;
-    //   boxbody.angularDamping = 0.01;
-    //   // boxMesh.castShadow = true;
-    //   boxMesh.receiveShadow = true;
-    //   world.addBody(boxbody);
-    //   scene.add(boxMesh);
-    //   boxes.push(boxbody);
-    //   boxMeshes.push(boxMesh);
-    //
-    //   if(i!=0){
-    //     // Connect this body to the last one
-    //     var c1 = new CANNON.PointToPointConstraint(boxbody,new CANNON.Vec3(-size,size+space,0),last,new CANNON.Vec3(-size,-size-space,0));
-    //     var c2 = new CANNON.PointToPointConstraint(boxbody,new CANNON.Vec3(size,size+space,0),last,new CANNON.Vec3(size,-size-space,0));
-    //     world.addConstraint(c1);
-    //     world.addConstraint(c2);
-    //   } else {
-    //     mass=0.3;
-    //   }
-    //   last = boxbody;
-    // }
 }
 
 function onWindowResize() {
