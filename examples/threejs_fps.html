@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Squada+One&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" type="text/css" href="css/ButtonStyle.css">
     <style>
         html,
@@ -78,7 +79,6 @@
 
 
 <body>
-    <script src="../three.js-dev/examples/js/libs/ammo.wasm.js"></script>
 
     <script src="../libs/Three.js"></script>
 
@@ -89,9 +89,9 @@
     <script src="js/Stage1.js"></script>
 
     <script src="js/Stage2.js"></script>
-    <script src="../three.js-dev/examples/jsm/misc/ConvexObjectBreaker.js" type="module"></script>
-    <script src="../three.js-dev/examples/jsm/geometries/ConvexGeometry.js" type="module"></script>
-    <script src="../three.js-dev/examples/jsm/controls/OrbitControls.js" type="module"></script>
+
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/r69/examples/js/loaders/ColladaLoader.js"></script>
+
     <script>var num_try;</script>
     <div id="blocker">
         <div id="instructions">
@@ -153,6 +153,59 @@
             document.addEventListener('mozpointerlockerror', pointerlockerror, false);
             document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
             instructions.addEventListener('click', function (event) {
+
+
+                var loader = new THREE.ColladaLoader();
+    loader.options.convertUpAxis = true;
+    loader.load('js/Cannon/model.dae', function(collada) {
+    // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
+    // scene.add(collada.scene);
+    
+    dae = collada.scene;
+    
+   // var skin = collada.skins[0];
+   // dae.position.set(0, 0, 0);
+
+    
+    
+    dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
+    dae.position.set(0, -1.1, 0);
+
+    
+    var scope = this;
+    var PI_2 = Math.PI * 2;
+    var onMouseMoveForCannon = function (event) {
+
+        if (scope.enabled === false) return;
+
+        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
+
+        dae.rotation.y -= movementX * 0.002;
+        dae.rotation.x -= movementY * 0.002;
+        dae.rotation.z -= movementZ * 0.002;
+
+        dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
+        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
+        //dae.rotation.z = Math.max(-PI_2, Math.min(PI_2, dae.rotation.z));
+        dae.updateMatrix();
+    
+    
+        scene.add(dae);
+
+
+    };
+    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+
+
+
+    
+    }); 
+
+
+
+
                 instructions.style.display = 'none';
                 // Ask the browser to lock the pointer
                 element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;

@@ -102,49 +102,6 @@ function init3() {
     document.body.appendChild(renderer.domElement);
     window.addEventListener("resize", onWindowResize, false);
 
-    //cannon
-    var length = 6;
-    var z = 5;
-    var geometry = new THREE.CylinderGeometry(0.2, 0.2, 2.3, 50);
-    var material_cannon = new THREE.MeshPhongMaterial({
-        color: 0x555555,
-        emissive: 0x111111,
-        side: THREE.DoubleSide,
-        flatShading: true
-    });
-    var cannon = new THREE.Mesh(geometry, material_cannon);
-    cannon.rotation.x = Math.PI / 2.75;
-    scene.add(cannon);
-    cannon.position.set(0, 0.7, z + 2);
-    // cannon base
-    var geometry = new THREE.SphereGeometry(1, 16,
-        16, 0, Math.PI * 2, -1.6);
-    var material = new THREE.MeshBasicMaterial({ color: 0x222222 });
-    var base = new THREE.Mesh(geometry, material);
-    base.position.set(0, 0, z + length / 2)
-    scene.add(base);
-    cannon.rotation.x = Math.PI / 2.75;
-    //cannon.rotation.y = -Math.PI / 2.75;
-    cannon.rotation.z = Math.PI / 2.75;
-    var scope = this;
-    var PI_2 = Math.PI / 2;
-    var onMouseMoveForCannon = function (event) {
-
-        if (scope.enabled === false) return;
-
-        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-
-        cannon.rotation.y -= movementX * 0.007;
-        cannon.rotation.z -= movementY * 0.007;
-
-        cannon.rotation.x = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.z));
-        cannon.rotation.z = Math.max(- PI_2, Math.min(PI_2, yawObject.rotation.y));
-    };
-
-    window.addEventListener('mousemove', onMouseMoveForCannon, false);
-
-
     // box
 
     var grass = THREE.ImageUtils.loadTexture('images_stage/grass2.jpg');
