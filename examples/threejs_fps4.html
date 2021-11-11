@@ -54,9 +54,8 @@
             width: 2%;
             transform: translate(-50%, -50%);
         }
-        #instructions,
-        #success,
-        #failed{
+
+        #instructions{
             width: 100%;
             height: 100%;
             display: -webkit-box;
@@ -130,27 +129,9 @@
     <script>var num_try;</script>
     <div id="blocker">
         <div id="instructions">
-            <span style="font-size:40px">stage4</span>
-            <br />
-            If you fall green block, stage cleared!
-            <br />
-            <button class="next" onClick="location.href='threejs_fps5.html'"> Next Stage</button>
-            <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
-            <button class="done" onClick='self.close()'> START </button>
-        </div>
-        <div id="failed">
-            <span style="font-size:40px">Failed!</span>
-            <br />
-            Try again?
-            <br />
-            <button class="next" onClick="location.href='threejs_fps5.html'"> Next Stage</button>
-            <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
-            <button class="done" onClick='self.close()'> START </button>
-        </div>
-        <div id="success">
-            <span style="font-size:40px">Success!</span>
-            <br />
-            Enjoy next games!
+            <span id='text' style="font-size:36px">Stage 4 <br />
+            If you fall green block, stage cleared!</span>
+           
             <br />
             <button class="next" onClick="location.href='threejs_fps5.html'"> Next Stage</button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
@@ -180,9 +161,6 @@
         var controls, time = Date.now();
         var blocker = document.getElementById('blocker');
         var instructions = document.getElementById('instructions');
-        var success = document.getElementById('success');
-        var failed = document.getElementById('failed');
-        // var next = document.getElementById("next");
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
         if (havePointerLock) {
@@ -216,7 +194,7 @@
 
                 var loader = new THREE.ColladaLoader();
                     loader.options.convertUpAxis = true;
-                    loader.load('js/Cannon/model1.dae', function(collada) {
+                    loader.load('js/Cannon/model_red.dae', function(collada) {
                     // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
                     // scene.add(collada.scene);
 
@@ -258,14 +236,10 @@
                     window.addEventListener('mousemove', onMouseMoveForCannon, false);
 
 
-
-
                     });
 
 
                 instructions.style.display = 'none';
-                success.style.display='none';
-                failed.style.display='none';
                 // Ask the browser to lock the pointer
                 element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
                 if (/Firefox/i.test(navigator.userAgent)) {
@@ -370,10 +344,9 @@
                     blocker.style.display = '-webkit-box';
                     blocker.style.display = '-moz-box';
                     blocker.style.display = 'box';
-                    // success.style.display='hidden';
-                    console.log('failed가 안나오고 success 낭모;;')
-                    failed.style.display = '';
-                    // document.exitPointerLock();
+                    instructions.style.display = '';
+                    text.innerHTML="Fail!!"
+                    document.exitPointerLock();
                 }
                 console.log("out of ball");
             }
@@ -387,8 +360,9 @@
                 blocker.style.display = '-webkit-box';
                 blocker.style.display = '-moz-box';
                 blocker.style.display = 'box';
-                failed.style.display='hidden';
-                success.style.display = '';
+                text.innerHTML="Clear Stage4!!"
+                instructions.style.display = '';
+
             }
             //clear 화면 없애기
             if (stage_clear === true) {
@@ -398,7 +372,6 @@
                     reset_state = true;
                     console.log(reset_state);
                     blocker.style.display = 'none';
-                    //success.style.display = 'none';
                     stage_clear = false;
                     console.log(stage_clear);
                     // reset_state = false;
