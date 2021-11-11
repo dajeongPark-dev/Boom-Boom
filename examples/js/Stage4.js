@@ -133,49 +133,72 @@ function init4() {
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', onWindowResize, false);
 
+    // // Add canon
+    // var length = 13;
+    // var z = 10;
+    // var geometry = new THREE.CylinderGeometry(0.1, 0.1, 1, 50);
+    // // var material6 = new THREE.MeshPhongMaterial({
+    // //     color: 0x555555,
+    // //     emissive: 0x111111,
+    // //     side: THREE.DoubleSide,
+    // //     flatShading: true
+    // // });
+    // cannon = new THREE.Mesh(geometry, material6);
+    // cannon.rotation.x = Math.PI * 2.75;
+    // scene.add(cannon);
+    // cannon.position.y = 0.7;
+    // cannon.position.z = -0.5;
+    // // cannon base
+    // var geometry = new THREE.SphereGeometry(0.7, 16,
+    //     16, 0, Math.PI * 2, -1.6);
+    // var material7 = new THREE.MeshBasicMaterial({color: 0x222222});
+    // var base = new THREE.Mesh(geometry, material7);
+    // base.position.set(0, 0, -0.3)
+    // scene.add(base);
+
+
     // Add canon
-    var length = 13;
-    var z = 10;
-    var geometry = new THREE.CylinderGeometry(0.1, 0.1, 1, 50);
-    // var material6 = new THREE.MeshPhongMaterial({
-    //     color: 0x555555,
-    //     emissive: 0x111111,
-    //     side: THREE.DoubleSide,
-    //     flatShading: true
-    // });
-    cannon = new THREE.Mesh(geometry, material6);
-    cannon.rotation.x = Math.PI * 2.75;
-    scene.add(cannon);
-    cannon.position.y = 0.7;
-    cannon.position.z = -0.5;
-    // cannon base
-    var geometry = new THREE.SphereGeometry(0.7, 16,
-        16, 0, Math.PI * 2, -1.6);
-    var material7 = new THREE.MeshBasicMaterial({color: 0x222222});
-    var base = new THREE.Mesh(geometry, material7);
-    base.position.set(0, 0, -0.3)
-    scene.add(base);
+    var loader = new THREE.ColladaLoader();
+    loader.options.convertUpAxis = true;
+    loader.load('js/Cannon/model.dae', function(collada) {
+        // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
+        // scene.add(collada.scene);
 
-    var scope = this;
-    var PI_2 = Math.PI * 2;
-    var onMouseMoveForCannon = function (event) {
+        dae = collada.scene;
 
-        if (scope.enabled === false) return;
+        // var skin = collada.skins[0];
+        // dae.position.set(0, 0, 0);
 
-        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
+        dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
+        dae.position.set(0, -1.1, 0);
 
-        cannon.rotation.y -= movementX * 0.002;
-        cannon.rotation.x -= movementY * 0.002;
-        cannon.rotation.z -= movementX * 0.002;
+        var scope = this;
+        var PI_2 = Math.PI * 2;
+        var onMouseMoveForCannon = function (event) {
 
-        cannon.rotation.x = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.x));
-        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
-        // cannon.rotation.z = Math.max(-PI_2, Math.min(PI_2, cannon.rotation.y));
+            if (scope.enabled === false) return;
 
-    };
-    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+            var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+            var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+            var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
+
+            dae.rotation.y -= movementX * 0.002;
+            dae.rotation.x -= movementY * 0.002;
+            dae.rotation.z -= movementZ * 0.002;
+
+            dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
+            // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
+            //dae.rotation.z = Math.max(-PI_2, Math.min(PI_2, dae.rotation.z));
+            dae.updateMatrix();
+
+
+            scene.add(dae);
+
+
+        };
+        window.addEventListener('mousemove', onMouseMoveForCannon, false);
+    });
+
 
 
     // Add boxes
