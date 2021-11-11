@@ -76,11 +76,13 @@ function init5() {
     controls = new PointerLockControls(camera, sphereBody);
     scene.add(controls.getObject());
     // floor
+	var floorTexture = THREE.ImageUtils.loadTexture("images_stage/grass.png");
+	var floorMaterial = new THREE.MeshBasicMaterial ({map:floorTexture});
     geometry = new THREE.PlaneGeometry(300, 300, 50, 50);
     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
     material = new THREE.MeshLambertMaterial({ color: 0xdddddd });
     material2 = new THREE.MeshLambertMaterial({ color: 0x8888 });
-    mesh = new THREE.Mesh(geometry, material);
+    mesh = new THREE.Mesh(geometry, floorMaterial);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
     scene.add(mesh);
@@ -91,6 +93,9 @@ function init5() {
     renderer.setClearColor(scene.fog.color, 1);
     document.body.appendChild(renderer.domElement);
     window.addEventListener("resize", onWindowResize, false);
+
+    
+
     // Add boxes
     var halfExtents = new CANNON.Vec3(1, 1, 1);
     var boxShape = new CANNON.Box(halfExtents);
