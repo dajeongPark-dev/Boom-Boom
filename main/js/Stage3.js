@@ -97,6 +97,7 @@ function init3() {
     THREE.ImageUtils.crossOrigin = '';
 
     // set options for ground texture mapping
+    material = new THREE.MeshLambertMaterial({ color: 0xDDDDDD });
     var texture = THREE.ImageUtils.loadTexture('images_stage/grass2.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(50, 50);
