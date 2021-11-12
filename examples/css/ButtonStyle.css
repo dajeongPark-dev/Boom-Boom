@@ -37,19 +37,19 @@ button {
 }
 
 button.next {
-  --button-bg-color: #b66eff;
-  --button-hover-bg-color: #935bca;
+  --button-bg-color: #f1c164;
+  --button-hover-bg-color: #c09235;
 }
 
 button.home {
-  --button-bg-color: #e80788;
-  --button-hover-bg-color: #b40769;
+  --button-bg-color: #5fa9d9;
+  --button-hover-bg-color: #327099;
 }
 
 button.done {
   /* --button-color: #ffffff; */
-  --button-bg-color: #b66eff;
-  --button-hover-bg-color: #935bca;
+  --button-bg-color: #f1c164;
+  --button-hover-bg-color: #c09235;
 }
 
 button:active,
