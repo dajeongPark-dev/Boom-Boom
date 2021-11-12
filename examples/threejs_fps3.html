@@ -255,15 +255,19 @@
         window.addEventListener("mousedown", function (e) {
 
             timer = setInterval(function () {
-                shootVelo += 2;
+                if(shootVelo<40){
+                    shootVelo += 4;
+                power.innerHTML = shootVelo;
+                }
+                else{
+                    power.innerHTML = 'MAX';
+                }              
             }, 100);
-
         });
 
         window.addEventListener("mouseup", function (e) {
             clearInterval(timer);
             console.log(shootVelo);
-            power.innerHTML = shootVelo;
             num_try = num_try + 1;
             switch (num_try) {
                 case 2:
