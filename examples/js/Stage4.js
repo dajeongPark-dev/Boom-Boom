@@ -75,9 +75,9 @@ function init4() {
     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
 
     material = new THREE.MeshLambertMaterial({ color: 0xDDDDDD });
-    var texture	= THREE.ImageUtils.loadTexture('images_stage/rocks.jpg');
+    var texture	= THREE.ImageUtils.loadTexture('images_stage/sand.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set( 50, 50 );
+    texture.repeat.set( 150, 150 );
     var material_ground	= new THREE.MeshPhongMaterial({
         map	: texture,
         bumpMap	: texture,
