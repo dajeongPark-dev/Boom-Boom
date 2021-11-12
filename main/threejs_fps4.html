@@ -82,10 +82,19 @@
         <span id='text2' style="font-size:36px">
                 If you fall all 2 red boxes, stage cleared!
             </span>
+<<<<<<< HEAD
         <br />
         <button class="done" id ='start_btn' onClick='start_or_restart()'> START </button>
         <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
         <button class="next" onClick="location.href='threejs_fps5.html'"> Next </button>
+=======
+
+            <br />
+            <button class="done" id ='start_btn' onClick='start_or_restart()'> START </button>
+            <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
+            <button class="next" onClick="location.href='threejs_fps5.html'"> Next </button>
+        </div>
+>>>>>>> fb45f5b9273c7e44fed737ed04b2353ce16dc802
     </div>
 </div>
 <div id='power'>0</div>
@@ -292,7 +301,6 @@
     // If cleared stage, display "success" blocker
     function clear() {
         if (stage_clear === true && reset_state === false) {
-            console.log(stage_clear);
             controls.enabled = false;
             blocker.style.display = '-webkit-box';
             blocker.style.display = '-moz-box';
