@@ -92,7 +92,6 @@
 
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r69/examples/js/loaders/ColladaLoader.js"></script>
 
-    <script src="js/Stage1.js"></script>
 
     <script src="js/Stage2.js"></script>
 
@@ -107,7 +106,7 @@
     <div id="blocker">
         <div id="instructions">
             <span id ='text' style="font-size:36px">Stage 5<br />
-            If you fall green block, stage cleared!</span>
+            If you fall magma block, stage cleared!</span>
             
             <br />
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
@@ -248,9 +247,6 @@
 
         var stageStage = 5;
         switch (stageStage) {
-            case 1:
-                stage1();
-                break;
             case 5:
                 stage5();
                 break;
