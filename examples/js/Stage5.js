@@ -78,7 +78,7 @@ function init5() {
     // floor
 	
     THREE.ImageUtils.crossOrigin = '';
-    var texture = THREE.ImageUtils.loadTexture('images_stage/grass2.jpg');
+    var texture = THREE.ImageUtils.loadTexture('image/grass2.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(50, 50);
 
@@ -105,7 +105,7 @@ function init5() {
     window.addEventListener("resize", onWindowResize, false);
 
     
-    var stone = THREE.ImageUtils.loadTexture('images_stage/thumbnail.png');
+    var stone = THREE.ImageUtils.loadTexture('image/thumbnail.png');
     //texture.anisotropy	= 16
     var stoneMaterial = new THREE.MeshPhongMaterial({
         map: stone,
@@ -113,7 +113,7 @@ function init5() {
         bumpScale: 0.03
     })
 
-    var magma = THREE.ImageUtils.loadTexture('images_stage/magma.jpg');
+    var magma = THREE.ImageUtils.loadTexture('image/magma.jpg');
     //texture.anisotropy	= 16
     var magmaMaterial = new THREE.MeshPhongMaterial({
         map: magma,

@@ -88,7 +88,7 @@ function init2() {
     scene.add(controls.getObject());
 
     THREE.ImageUtils.crossOrigin = '';
-    var texture = THREE.ImageUtils.loadTexture('images_stage/grass2.jpg');
+    var texture = THREE.ImageUtils.loadTexture('image/grass2.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(50, 50);
     //texture.anisotropy	= 16
@@ -189,14 +189,14 @@ function init2() {
     // boxMesh.receiveShadow = true;
     // boxes.push(boxBody);
     // boxMeshes.push(boxMesh);
-    var grass = THREE.ImageUtils.loadTexture('images_stage/rocks.jpg');
+    var grass = THREE.ImageUtils.loadTexture('image/rocks.jpg');
     var material5 = new THREE.MeshPhongMaterial({
         map: grass,
         bumpMap: grass,
         bumpScale: 0.03
     })
 
-    var tree = THREE.ImageUtils.loadTexture('images_stage/tree_texture3.jpg');
+    var tree = THREE.ImageUtils.loadTexture('image/tree_texture3.jpg');
     var material6 = new THREE.MeshPhongMaterial({
         map: tree,
         bumpMap: tree,

@@ -137,7 +137,7 @@
     <!-- Header Section -->
     <header>
         <div class="head1">
-            <img class="img_logo" src="images_stage/logo2.png" alt="logo" />
+            <img class="img_logo" src="image/logo2.png" alt="logo" />
         </div>
     </header>
 
@@ -181,7 +181,7 @@
             <table class="tb">
                 <tr>
                     <td><button class="prev" onclick="C_click2();"><</button></td>
-                    <td><img id ="cannon_photo" src="images_stage/cannon_black.png"></td>
+                    <td><img id ="cannon_photo" src="image/cannon_black.png"></td>
                     <td><button class="next" onclick="C_click();">></button></td>
                 </tr>
             </table>
@@ -190,18 +190,18 @@
             <h3 class="headline">Stage</h3>
             <span>
                 <span class="btn_stage_img" >
-                    <a href="threejs_fps.html"><img class="btn_stage_img" src="images_stage/s1.png"   style=" padding:10px; max-width: 10%; height: auto;"
-                            alt="버튼 stage 1" /></a>
+                    <a href="threejs_fps.html"><img class="btn_stage_img" src="image/s1.png" style=" padding:10px; max-width: 10%; height: auto;"
+                                                    alt="버튼 stage 1" /></a>
 
-                    <a href="threejs_fps2.html"><img class="btn_stage_img" src="images_stage/s2.png"  style="padding:10px; max-width: 10%; height: auto;" 
-                            alt="버튼 stage 2" /></a>
+                    <a href="threejs_fps2.html"><img class="btn_stage_img" src="image/s2.png" style="padding:10px; max-width: 10%; height: auto;"
+                                                     alt="버튼 stage 2" /></a>
 
-                    <a href="threejs_fps5.html"><img class="btn_stage_img" src="images_stage/s3.png"  style="padding:10px; max-width: 10%; height: auto;"
-                            alt="버튼 stage 3" /></a>
-                    <a href="threejs_fps4.html"><img class="btn_stage_img" src="images_stage/s4.png"  style="padding:10px; max-width: 10%; height: auto;"
-                            alt="버튼 stage 4" /></a>
-                    <a href="threejs_fps3.html"><img class="btn_stage_img" src="images_stage/s5.png"  style="padding:10px; max-width: 10%; height: auto;"
-                            alt="버튼 stage 5" /></a>
+                    <a href="threejs_fps5.html"><img class="btn_stage_img" src="image/s3.png" style="padding:10px; max-width: 10%; height: auto;"
+                                                     alt="버튼 stage 3" /></a>
+                    <a href="threejs_fps4.html"><img class="btn_stage_img" src="image/s4.png" style="padding:10px; max-width: 10%; height: auto;"
+                                                     alt="버튼 stage 4" /></a>
+                    <a href="threejs_fps3.html"><img class="btn_stage_img" src="image/s5.png" style="padding:10px; max-width: 10%; height: auto;"
+                                                     alt="버튼 stage 5" /></a>
                 </span>
             </span>
         </section>
@@ -221,32 +221,32 @@
             if(count%7==1){
                 color='js/Cannon/model1.dae';
                 // change photo
-                $("#cannon_photo").attr("src", "images_stage/cannon_red.png");
+                $("#cannon_photo").attr("src", "image/cannon_red.png");
             }
             else if(count%7==2){
                 color='js/Cannon/model2.dae';
                 // change photo
-                $("#cannon_photo").attr("src", "images_stage/cannon_orange.png");
+                $("#cannon_photo").attr("src", "image/cannon_orange.png");
             }
             else if(count%7==3){
                 color='js/Cannon/model3.dae';
-                $("#cannon_photo").attr("src", "images_stage/cannon_yellow.png");
+                $("#cannon_photo").attr("src", "image/cannon_yellow.png");
             }
             else if(count%7==4){
                 color='js/Cannon/model4.dae';
-                $("#cannon_photo").attr("src", "images_stage/cannon_green.png");
+                $("#cannon_photo").attr("src", "image/cannon_green.png");
             }
             else if(count%7==5){
                 color='js/Cannon/model5.dae';
-                $("#cannon_photo").attr("src", "images_stage/cannon_blue.png");
+                $("#cannon_photo").attr("src", "image/cannon_blue.png");
             }
             else if(count%7==6){
                 color='js/Cannon/model6.dae';
-                $("#cannon_photo").attr("src", "images_stage/cannon_purple.png");
+                $("#cannon_photo").attr("src", "image/cannon_purple.png");
             }
             else if(count%7==0){
                 color='js/Cannon/model.dae';
-                $("#cannon_photo").attr("src", "images_stage/cannon_black.png");
+                $("#cannon_photo").attr("src", "image/cannon_black.png");
             }
 
             localStorage.setItem('color',JSON.stringify(color));

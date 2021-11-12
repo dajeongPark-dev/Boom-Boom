@@ -75,7 +75,7 @@ function init4() {
     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
 
     material = new THREE.MeshLambertMaterial({ color: 0xDDDDDD });
-    var texture	= THREE.ImageUtils.loadTexture('images_stage/sand.jpg');
+    var texture	= THREE.ImageUtils.loadTexture('image/sand.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set( 150, 150 );
     var material_ground	= new THREE.MeshPhongMaterial({
@@ -84,7 +84,7 @@ function init4() {
         bumpScale: 0.03
     })
 
-    var texture2	= THREE.ImageUtils.loadTexture('images_stage/tree_texture1.jpg');
+    var texture2	= THREE.ImageUtils.loadTexture('image/tree_texture1.jpg');
     var material2 = new THREE.MeshPhongMaterial({
         color: 0xE75656,
         map	: texture2,
@@ -92,14 +92,14 @@ function init4() {
         bumpScale: 0.03
     })
 
-    var texture3	= THREE.ImageUtils.loadTexture('images_stage/tree_texture2.jpg');
+    var texture3	= THREE.ImageUtils.loadTexture('image/tree_texture2.jpg');
     var material3 = new THREE.MeshPhongMaterial({
         map	: texture3,
         bumpMap	: texture3,
         bumpScale: 0.03
     })
 
-    var texture4	= THREE.ImageUtils.loadTexture('images_stage/tree_texture3.jpg');
+    var texture4	= THREE.ImageUtils.loadTexture('image/tree_texture3.jpg');
     var material4 = new THREE.MeshPhongMaterial({
         map	: texture4,
         bumpMap	: texture4,
@@ -409,15 +409,6 @@ function animate4() {
             boxMeshes[i].position.copy(boxes[i].position);
             boxMeshes[i].quaternion.copy(boxes[i].quaternion);
 
-            // remove box if it fall
-            // console.log(boxMeshes[0].position.y);
-            // if (boxMeshes[2].position.y < 1.21111) {
-            //     scene.remove(boxMeshes[2]);
-            //     stage_clear = true;
-            //     document.exitPointerLock();
-            //     // console.log(stage_clear);
-            //     clear();
-            // }
             if(boxMeshes[2].position.y < 1.21111 && boxMeshes[5].position.y < 1.21111){
                 stage_clear = true;
                 document.exitPointerLock();

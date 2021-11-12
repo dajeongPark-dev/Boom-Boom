@@ -78,7 +78,7 @@ function init3() {
     scene.add(controls.getObject());
 
     THREE.ImageUtils.crossOrigin = '';
-    var texture = THREE.ImageUtils.loadTexture('images_stage/ground_grass.jpg');
+    var texture = THREE.ImageUtils.loadTexture('image/ground_grass.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(50, 50);
 
@@ -88,14 +88,14 @@ function init3() {
         bumpScale: 0.03
     })
 
-    var texture_wall_stone = THREE.ImageUtils.loadTexture('images_stage/wall-gad.jpg');
+    var texture_wall_stone = THREE.ImageUtils.loadTexture('image/wall-gad.jpg');
     var material_wall = new THREE.MeshPhongMaterial({
         map: texture_wall_stone,
         bumpMap: texture_wall_stone,
         bumpScale: 0.03
     })
 
-    var texture_door_wood = THREE.ImageUtils.loadTexture('images_stage/wood_door.jpg');
+    var texture_door_wood = THREE.ImageUtils.loadTexture('image/wood_door.jpg');
     var material_door = new THREE.MeshPhongMaterial({
         map: texture_door_wood,
         bumpMap: texture_door_wood,

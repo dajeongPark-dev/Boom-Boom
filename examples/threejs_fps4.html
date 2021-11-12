@@ -100,13 +100,13 @@
     </div>
     <div id='power'>0</div>
     <div id="game_hud">
-          <img id="crosshair" src="images_stage/crosshair.png" />
+          <img id="crosshair" src="image/crosshair.png" />
         <div id="num_ball">
             <table>
                 <tr>
-                    <td><img id='ball1' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
-                    <td><img id='ball2' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
-                    <td><img id='ball3' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
+                    <td><img id='ball1' src="image/ball.png" style="width:50px; height:50px;"/></td>
+                    <td><img id='ball2' src="image/ball.png" style="width:50px; height:50px;"/></td>
+                    <td><img id='ball3' src="image/ball.png" style="width:50px; height:50px;"/></td>
                 </tr>
             </table>
         </div>
@@ -176,15 +176,12 @@
 
                         var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
                         var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-                        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
 
                         dae.rotation.y -= movementX * 0.002;
                         dae.rotation.x -= movementY * 0.002;
-                        dae.rotation.z -= movementZ * 0.002;
+                        dae.rotation.z -= 0;
 
                         dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
-                        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
-                        //dae.rotation.z = Math.max(-PI_2, Math.min(PI_2, dae.rotation.z));
                         dae.updateMatrix();
 
 
