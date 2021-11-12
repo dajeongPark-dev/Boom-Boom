@@ -137,7 +137,7 @@ function init1() {
     boxes = [], boxMeshes = [];
     boxes.push(boxBody);
     boxMeshes.push(boxMesh);
-=
+
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
     var boxMesh = new THREE.Mesh(boxGeometry, material);
