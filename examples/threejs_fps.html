@@ -101,9 +101,9 @@
                 If you fall the green box, stage cleared!
             </span>
             <br />
-            <button class="next" onClick="location.href='threejs_fps2.html'"> NEXT </button>
+            <button class="done" id ='start_btn' onClick='start_or_restart()'> START </button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
-            <button class="done" id='start_btn' onClick='start_or_restart()'> START </button>
+            <button class="next" onClick="location.href='threejs_fps2.html'"> Next </button>
         </div>
     </div>
     <div id='power'>0</div>
@@ -342,6 +342,7 @@
                 text2.innerHTML = ""
                 text.innerHTML = "Clear Stage1!!"
                 instructions.style.display = '';
+                start_btn.style.display='none';
             }
             //clear 화면 없애기
             if (stage_clear === true) {

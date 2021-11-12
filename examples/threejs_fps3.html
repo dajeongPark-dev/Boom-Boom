@@ -99,9 +99,8 @@
             </span>
 
             <br />
+            <button class="done" id ='start_btn' onClick='start_or_restart()'> START </button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
-            <button class="done" id="start_btn" onClick='start_or_restart()'> START </button>
-
         </div>
     </div>
     <div id='power'>0</div>
@@ -339,7 +338,7 @@
                 text2.innerHTML = ""
                 text.innerHTML = "Clear Stage 5!!"
                 instructions.style.display = '';
-
+                start_btn.style.display='none';
             }
             //clear 화면 없애기
             if (stage_clear === true) {

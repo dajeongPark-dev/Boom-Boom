@@ -106,9 +106,9 @@ function init1() {
     var boxMesh = new THREE.Mesh(boxGeometry, material);
     world.addBody(boxBody);
     scene.add(boxMesh);
-    boxBody.position.set(0, 1, -5);
+    boxBody.position.set(-1, 1, -5);
     boxBody.fixedRotation = true;
-    boxMesh.position.set(0, 1, -5);
+    boxMesh.position.set(-1, 1, -5);
     boxMesh.castShadow = true;
     boxMesh.receiveShadow = true;
     boxes = [], boxMeshes = [];
@@ -120,9 +120,9 @@ function init1() {
     var boxMesh = new THREE.Mesh(boxGeometry, material);
     world.addBody(boxBody);
     scene.add(boxMesh);
-    boxBody.position.set(2, 1, -5);
+    boxBody.position.set(1, 1, -5);
     boxBody.fixedRotation = true;
-    boxMesh.position.set(2, 1, -5);
+    boxMesh.position.set(1, 1, -5);
     boxMesh.castShadow = true;
     boxMesh.receiveShadow = true;
     boxes.push(boxBody);
@@ -138,9 +138,9 @@ function init1() {
     var boxMesh = new THREE.Mesh(boxGeometry, material2);
     world.addBody(boxBody);
     scene.add(boxMesh);
-    boxBody.position.set(1, 3, -5);
+    boxBody.position.set(0, 3, -5);
     boxBody.fixedRotation = true;
-    boxMesh.position.set(1, 3, -5);
+    boxMesh.position.set(0, 3, -5);
     boxMesh.castShadow = true;
     boxMesh.receiveShadow = true;
     boxes.push(boxBody);
@@ -156,9 +156,9 @@ function init1() {
     var boxMesh = new THREE.Mesh(boxGeometry, material);
     world.addBody(boxBody);
     scene.add(boxMesh);
-    boxBody.position.set(1, 5, -5);
+    boxBody.position.set(0, 5, -5);
     boxBody.fixedRotation = true;
-    boxMesh.position.set(1, 5, -5);
+    boxMesh.position.set(0, 5, -5);
     boxMesh.castShadow = true;
     boxMesh.receiveShadow = true;
     boxes.push(boxBody);
