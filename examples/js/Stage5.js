@@ -307,7 +307,6 @@ function animate5() {
                         console.log(stage_clear);
                         document.exitPointerLock();
                         clear();
-                        //stage2();
                     }
         }
     }
