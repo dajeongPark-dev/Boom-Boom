@@ -59,6 +59,8 @@
         pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.x ) );
     };
 
+    //we don't allow keyboard movement
+
     var onKeyDown = function ( event ) {
 
         switch ( event.keyCode ) {
