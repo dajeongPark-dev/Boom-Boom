@@ -5,8 +5,10 @@
 <head>
 
     <meta charset="utf-8">
-    <title>cannon.js + three.js physics shooter</title>
+    <title>BoomBoom - Stage 5</title>
+    <link rel="stylesheet" type="text/css" href="css/BoomBoom.css">
     <link rel="stylesheet" type="text/css" href="css/ButtonStyle.css">
+    <link rel="stylesheet" type="text/css" href="css/instructions.css">
     <style>
         html,
         body {
@@ -58,24 +60,10 @@
             transform: translate(-50%, -50%);
         }
 
-        #instructions{
-            width: 100%;
-            height: 100%;
-            display: -webkit-box;
-            display: -moz-box;
-            display: box;
-            -webkit-box-orient: horizontal;
-            -moz-box-orient: horizontal;
-            box-orient: horizontal;
-            -webkit-box-pack: center;
-            -moz-box-pack: center;
-            box-pack: center;
-            -webkit-box-align: center;
-            -moz-box-align: center;
-            box-align: center;
-            color: #ffffff;
-            text-align: center;
-            cursor: pointer;
+        button {
+            font-size:20px;
+            font-family: 'Bebas Neue', cursive;
+            color : rgb(22, 52, 90);
         }
     </style>
 
@@ -105,9 +93,18 @@
     <script>var num_try;</script>
     <div id="blocker">
         <div id="instructions">
+<<<<<<< HEAD
             <span id ='text' style="font-size:36px">Stage 5<br />
             If you fall magma block, stage cleared!</span>
             
+=======
+            <span id='text' style="font-size:100px">
+                Stage 5<br />
+            </span>
+            <span id='text2' style="font-size:36px">
+                If you fall the green box, stage cleared!
+            </span>
+>>>>>>> ced99bc09a0ccf19000e32d1f00da7527d443758
             <br />
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
             <button class="done" onClick='self.close()'> START </button>
@@ -324,7 +321,8 @@
                     blocker.style.display = '-moz-box';
                     blocker.style.display = 'box';
                     instructions.style.display = '';
-                    text.innerHTML="Fail!!"
+                    text.innerHTML = "Fail!! \n"
+                    text2.innerHTML = "Try again"
                     document.exitPointerLock();
                 }
                 console.log("out of ball");
@@ -339,6 +337,7 @@
                 blocker.style.display = '-webkit-box';
                 blocker.style.display = '-moz-box';
                 blocker.style.display = 'box';
+                text2.innerHTML = ""
                 text.innerHTML = "Clear Stage5!!"
                 instructions.style.display = '';
             }

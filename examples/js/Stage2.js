@@ -11,7 +11,7 @@ function init2() {
 
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x000000, 0, 500);
+    scene.fog = new THREE.Fog(0x2D2D5A, 0, 500);
 
     
 
@@ -88,7 +88,7 @@ function init2() {
     scene.add(controls.getObject());
 
     THREE.ImageUtils.crossOrigin = '';
-    var texture = THREE.ImageUtils.loadTexture('images_stage/rocks.jpg');
+    var texture = THREE.ImageUtils.loadTexture('images_stage/grass2.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(50, 50);
     //texture.anisotropy	= 16
@@ -189,13 +189,20 @@ function init2() {
     // boxMesh.receiveShadow = true;
     // boxes.push(boxBody);
     // boxMeshes.push(boxMesh);
-    var grass = THREE.ImageUtils.loadTexture('images_stage/grass2.jpg');
-    //texture.anisotropy	= 16
+    var grass = THREE.ImageUtils.loadTexture('images_stage/rocks.jpg');
     var material5 = new THREE.MeshPhongMaterial({
         map: grass,
         bumpMap: grass,
         bumpScale: 0.03
     })
+
+    var tree = THREE.ImageUtils.loadTexture('images_stage/tree_texture3.jpg');
+    var material6 = new THREE.MeshPhongMaterial({
+        map: tree,
+        bumpMap: tree,
+        bumpScale: 0.03
+    })
+
 
 
 
@@ -228,7 +235,7 @@ function init2() {
     console.log(count);
     var boxBody = new CANNON.Body({ mass: 0.5 });
     boxBody.addShape(boxShape3);
-    var boxMesh = new THREE.Mesh(boxGeometry3, material3);
+    var boxMesh = new THREE.Mesh(boxGeometry3, material6);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(0.6, 3.1, -5.5);
@@ -296,7 +303,7 @@ function init2() {
 
     var boxBody = new CANNON.Body({ mass: 0.2 });
     boxBody.addShape(boxShape3);
-    var boxMesh = new THREE.Mesh(boxGeometry3, material);
+    var boxMesh = new THREE.Mesh(boxGeometry3, material5);
     world.addBody(boxBody);
     scene.add(boxMesh);
     boxBody.position.set(0.6, 4.5, -5.5);
