@@ -102,7 +102,7 @@
             </span>
             <br />
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
-            <button class="done" onClick='self.close()'> START </button>
+            <button class="done" id="start_btn" onClick='start_or_restart()'> START </button>
         </div>
         <div id="success">
             <span style="font-size:40px">Stage5 Clear!</span>
@@ -318,6 +318,8 @@
                     instructions.style.display = '';
                     text.innerHTML = "Fail!! \n"
                     text2.innerHTML = "Try again"
+                    const btnElement = document.getElementById('start_btn');
+                    btnElement.innerText = 'RESTART';
                     document.exitPointerLock();
                 }
                 console.log("out of ball");
@@ -359,6 +361,17 @@
                 });
             }
 
+        }
+
+        function start_or_restart(){
+            if(stage_clear === false&& num_try >= 5) {
+                self.close();
+                // reload tab
+                window.location.reload();
+            }
+            else{
+                self.close();
+            }
         }
     </script>
 

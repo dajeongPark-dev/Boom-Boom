@@ -92,7 +92,7 @@
             <br />
             <button class="next" onClick="location.href='threejs_fps3.html'"> NEXT </button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
-            <button id = 'start' class="done" onClick = 'howStart()'> START </button>
+            <button id = 'start_btn' class="done" onClick = 'start_or_restart()'> START </button>
         </div>
         
     </div>
@@ -142,23 +142,6 @@
             var pointerlockerror = function (event) {
                 instructions.style.display = '';
             }
-            // Hook pointer lock state change events
-            start.addEventListener('click',function(){
-                
-
-            })
-            function howStart(){
-                
-                if(stage_clear===false&& num_try<5){
-                    self.close();
-                }
-                else {
-                    window.location.href = "threejs_fps2.html";
-                    blocker.style.display = 'none';
-                }
-            }
-
-            
             document.addEventListener('pointerlockchange', pointerlockchange, false);
             document.addEventListener('mozpointerlockchange', pointerlockchange, false);
             document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
@@ -329,6 +312,8 @@
                     instructions.style.display = '';
                     text.innerHTML = "Fail!! \n"
                     text2.innerHTML = "\nTry again"
+                    const btnElement = document.getElementById('start_btn');
+                    btnElement.innerText = 'RESTART';
                     document.exitPointerLock();
                 }
                 console.log("out of ball");
@@ -369,6 +354,17 @@
                 });
             }
 
+        }
+
+        function start_or_restart(){
+            if(stage_clear === false&& num_try >= 5) {
+                self.close();
+                // reload tab
+                window.location.reload();
+            }
+            else{
+                self.close();
+            }
         }
     </script>
 

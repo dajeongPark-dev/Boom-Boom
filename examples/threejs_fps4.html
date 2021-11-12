@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
     <meta charset="utf-8">
     <title>BoomBoom - Stage 4</title>
     <link rel="stylesheet" type="text/css" href="css/BoomBoom.css">
@@ -63,37 +61,6 @@
             font-family: 'Bebas Neue', cursive;
             color : rgb(22, 52, 90);
         }
-        /*.failed1 span {*/
-        /*    display: inline-block;*/
-        /*    margin: 0 -.05em;*/
-        /*    animation: loading .7s infinite;*/
-        /*}*/
-        /*.failed1 span:nth-child(2) {*/
-        /*    animation-delay: .1s;*/
-        /*}*/
-        /*.failed1 span:nth-child(3) {*/
-        /*    animation-delay: .2s;*/
-        /*}*/
-        /*.failed1 span:nth-child(4) {*/
-        /*    animation-delay: .3s;*/
-        /*}*/
-        /*.failed1 span:nth-child(5) {*/
-        /*    animation-delay: .4s;*/
-        /*}*/
-        /*.failed1 span:nth-child(6) {*/
-        /*    animation-delay: .5s;*/
-        /*}*/
-        /*.failed1 span:nth-child(7) {*/
-        /*    animation-delay: .6s;*/
-        /*}*/
-        /*@keyframes failed1 {*/
-        /*    0%, 100% {*/
-        /*        transform: translateY(0);*/
-        /*    }*/
-        /*    50% {*/
-        /*        transform: translateY(15px);*/
-        /*    }*/
-        /*}*/
     </style>
 
 </head>
@@ -128,7 +95,7 @@
             <br />
             <button class="next" onClick="location.href='threejs_fps5.html'"> Next </button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
-            <button class="done" onClick='self.close()'> START </button>
+            <button class="done" id ='start_btn' onClick='start_or_restart()'> START </button>
         </div>
     </div>
     <div id='power'>0</div>
@@ -339,6 +306,8 @@
                     instructions.style.display = '';
                     text.innerHTML = "Fail!! \n"
                     text2.innerHTML = "Try again"
+                    const btnElement = document.getElementById('start_btn');
+                    btnElement.innerText = 'RESTART';
                     document.exitPointerLock();
                 }
                 console.log("out of ball");
@@ -381,6 +350,16 @@
             }
         }
 
+        function start_or_restart(){
+            if(stage_clear === false&& num_try >= 5) {
+                self.close();
+                // reload tab
+                window.location.reload();
+            }
+            else{
+                self.close();
+            }
+        }
 
     </script>
 

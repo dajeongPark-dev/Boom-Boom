@@ -69,6 +69,9 @@
             font-family: 'Bebas Neue', cursive;
             color : rgb(22, 52, 90);
         }
+        .restart{
+            visibility: hidden;
+        }
     </style>
 
 </head>
@@ -100,7 +103,7 @@
             <br />
             <button class="next" onClick="location.href='threejs_fps2.html'"> NEXT </button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
-            <button class="done" onClick='self.close()'> START </button>
+            <button class="done" id='start_btn' onClick='start_or_restart()'> START </button>
         </div>
     </div>
     <div id='power'>0</div>
@@ -320,6 +323,8 @@
                     instructions.style.display = '';
                     text.innerHTML = "Fail!! \n"
                     text2.innerHTML = "Try again"
+                    const btnElement = document.getElementById('start_btn');
+                    btnElement.innerText = 'RESTART';
                     document.exitPointerLock();
                 }
                 console.log("out of ball");
@@ -333,7 +338,7 @@
                 controls.enabled = false;
                 blocker.style.display = '-webkit-box';
                 blocker.style.display = '-moz-box';
-                blocker.style.display = 'box';
+                blocker.style.display = 'box'
                 text2.innerHTML = ""
                 text.innerHTML = "Clear Stage1!!"
                 instructions.style.display = '';
@@ -360,6 +365,17 @@
                 });
             }
 
+        }
+
+        function start_or_restart(){
+            if(stage_clear === false&& num_try >= 5) {
+                self.close();
+                // reload tab
+                window.location.reload();
+            }
+            else{
+                self.close();
+            }
         }
     </script>
 
