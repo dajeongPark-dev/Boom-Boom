@@ -1,5 +1,4 @@
 function stage2() {
-
     init2(); // 옮기기
     animate2();
 }

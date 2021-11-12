@@ -1,10 +1,12 @@
+//init stage5
 function stage5() {
     initCannon5();
     init5();
     animate5();
 }
+
 function initCannon5() {
-    // Setup our world
+    // Setup new world
     world = new CANNON.World();
     world.quatNormalizeSkip = 0;
     world.quatNormalizeFast = false;
@@ -16,6 +18,8 @@ function initCannon5() {
     var split = true;
     if (split) world.solver = new CANNON.SplitSolver(solver);
     else world.solver = solver;
+
+    // set world's gravity
     world.gravity.set(0, -20, 0);
     world.broadphase = new CANNON.NaiveBroadphase();
     // Create a slippery material (friction coefficient = 0.0)
@@ -26,9 +30,11 @@ function initCannon5() {
         0.0,// friction coefficient
         0.3 // restitution
     );
+
     // We must add the contact materials to the world
     world.addContactMaterial(physicsContactMaterial);
-    // Create a sphere
+
+    // create a cannonball sphere
     var mass = 5,
         radius = 1.3;
     sphereShape = new CANNON.Sphere(radius);
@@ -37,7 +43,8 @@ function initCannon5() {
     sphereBody.position.set(0, 5, 0);
     sphereBody.linearDamping = 0.9;
     world.addBody(sphereBody);
-    // Create a plane
+
+    // create a plane
     var groundShape = new CANNON.Plane();
     var groundBody = new CANNON.Body({ mass: 0 });
     groundBody.addShape(groundShape);
@@ -47,15 +54,23 @@ function initCannon5() {
     );
     world.addBody(groundBody);
 }
+
+// setup scene
 function init5() {
+
+    // setup camera
     camera = new THREE.PerspectiveCamera(
         75,
         window.innerWidth / window.innerHeight,
         0.1,
         1000
     );
+
+    // define new sene
     scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xA2F6FF, 0, 500);
+
+    // light option
     var ambient = new THREE.AmbientLight(0x111111);
     scene.add(ambient);
     light = new THREE.SpotLight(0xB5B2FF);
@@ -73,11 +88,15 @@ function init5() {
         //light.shadowCameraVisible = true;
     }
     scene.add(light);
+
+
     controls = new PointerLockControls(camera, sphereBody);
     scene.add(controls.getObject());
-    // floor
-	
+
+    // floor option
     THREE.ImageUtils.crossOrigin = '';
+
+    // set options for ground texture mapping
     var texture = THREE.ImageUtils.loadTexture('images_stage/grass2.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(50, 50);
@@ -88,10 +107,10 @@ function init5() {
         bumpScale: 0.03
     })
 
+    // floor option
     geometry = new THREE.PlaneGeometry(300, 300, 50, 50);
     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-    material = new THREE.MeshLambertMaterial({ color: 0xdddddd });
-    material2 = new THREE.MeshLambertMaterial({ color: 0x8888 });
+
     mesh = new THREE.Mesh(geometry, floorMaterial);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
@@ -104,9 +123,8 @@ function init5() {
     document.body.appendChild(renderer.domElement);
     window.addEventListener("resize", onWindowResize, false);
 
-    
+    // set options for object texture mapping
     var stone = THREE.ImageUtils.loadTexture('images_stage/thumbnail.png');
-    //texture.anisotropy	= 16
     var stoneMaterial = new THREE.MeshPhongMaterial({
         map: stone,
         bumpMap: stone,
@@ -114,176 +132,179 @@ function init5() {
     })
 
     var magma = THREE.ImageUtils.loadTexture('images_stage/magma.jpg');
-    //texture.anisotropy	= 16
     var magmaMaterial = new THREE.MeshPhongMaterial({
         map: magma,
         bumpMap: magma,
         bumpScale: 0.03
     })
 
-   // Add boxes
-   var halfExtents = new CANNON.Vec3(1, 1, 1);
-   var boxShape = new CANNON.Box(halfExtents);
-   var boxGeometry = new THREE.BoxGeometry(
-       halfExtents.x * 2,
-       halfExtents.y * 2,
-       halfExtents.z * 2
-   );
+    // Add boxes
+    var halfExtents = new CANNON.Vec3(1, 1, 1);
+    var boxShape = new CANNON.Box(halfExtents);
+    var boxGeometry = new THREE.BoxGeometry(
+        halfExtents.x * 2,
+        halfExtents.y * 2,
+        halfExtents.z * 2
+    );
 
- //left box
- var boxBody = new CANNON.Body({ mass: 1 });
- boxBody.addShape(boxShape);
- var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
- world.addBody(boxBody);
- scene.add(boxMesh);
- boxBody.position.set(-2, 1, -15);
- boxBody.fixedRotation = true;
- boxMesh.position.set(-2, 1, -15);
- boxMesh.castShadow = true;
- boxMesh.receiveShadow = true;
- boxes = [], boxMeshes = [];
- boxes.push(boxBody);
- boxMeshes.push(boxMesh);
+    //objects
+    var boxBody = new CANNON.Body({ mass: 1 });
+    boxBody.addShape(boxShape);
+    var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
+    world.addBody(boxBody);
+    scene.add(boxMesh);
+    boxBody.position.set(-2, 1, -15);
+    boxBody.fixedRotation = true;
+    boxMesh.position.set(-2, 1, -15);
+    boxMesh.castShadow = true;
+    boxMesh.receiveShadow = true;
+    boxes = [], boxMeshes = [];
+    boxes.push(boxBody);
+    boxMeshes.push(boxMesh);
 
-   //left box
-   var boxBody = new CANNON.Body({ mass: 1 });
-   boxBody.addShape(boxShape);
-   var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
-   world.addBody(boxBody);
-   scene.add(boxMesh);
-   boxBody.position.set(2, 1, -15);
-   boxBody.fixedRotation = true;
-   boxMesh.position.set(2, 1, -15);
-   boxMesh.castShadow = true;
-   boxMesh.receiveShadow = true;
-   boxes = [], boxMeshes = [];
-   boxes.push(boxBody);
-   boxMeshes.push(boxMesh);
-   //right box
-   var boxBody = new CANNON.Body({ mass: 1 });
-   boxBody.addShape(boxShape);
-   var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
-   world.addBody(boxBody);
-   scene.add(boxMesh);
-   boxBody.position.set(0, 1, -15);
-   boxBody.fixedRotation = true;
-   boxMesh.position.set(0, 1, -15);
-   boxMesh.castShadow = true;
-   boxMesh.receiveShadow = true;
-   boxes.push(boxBody);
-   boxMeshes.push(boxMesh);
-   //center box
+    var boxBody = new CANNON.Body({ mass: 1 });
+    boxBody.addShape(boxShape);
+    var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
+    world.addBody(boxBody);
+    scene.add(boxMesh);
+    boxBody.position.set(2, 1, -15);
+    boxBody.fixedRotation = true;
+    boxMesh.position.set(2, 1, -15);
+    boxMesh.castShadow = true;
+    boxMesh.receiveShadow = true;
+    boxes = [], boxMeshes = [];
+    boxes.push(boxBody);
+    boxMeshes.push(boxMesh);
+    
+    var boxBody = new CANNON.Body({ mass: 1 });
+    boxBody.addShape(boxShape);
+    var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
+    world.addBody(boxBody);
+    scene.add(boxMesh);
+    boxBody.position.set(0, 1, -15);
+    boxBody.fixedRotation = true;
+    boxMesh.position.set(0, 1, -15);
+    boxMesh.castShadow = true;
+    boxMesh.receiveShadow = true;
+    boxes.push(boxBody);
+    boxMeshes.push(boxMesh);
 
-   var boxGeometry = new THREE.BoxGeometry(
-    halfExtents.x * 0.3,
-    halfExtents.y * 2,
-    halfExtents.z * 2
-);
+    // other size of object
+    var boxGeometry = new THREE.BoxGeometry(
+        halfExtents.x * 0.3,
+        halfExtents.y * 2,
+        halfExtents.z * 2
+    );
 
-   var boxBody = new CANNON.Body({ mass: 1 });
-   boxBody.addShape(boxShape);
-   var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
-   world.addBody(boxBody);
-   scene.add(boxMesh);
-   boxBody.position.set(-1, 3, -15);
-   boxBody.fixedRotation = true;
-   boxMesh.position.set(-1, 3, -15);
-   boxMesh.castShadow = true;
-   boxMesh.receiveShadow = true;
-   boxes.push(boxBody);
-   boxMeshes.push(boxMesh);
+    var boxBody = new CANNON.Body({ mass: 1 });
+    boxBody.addShape(boxShape);
+    var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
+    world.addBody(boxBody);
+    scene.add(boxMesh);
+    boxBody.position.set(-1, 3, -15);
+    boxBody.fixedRotation = true;
+    boxMesh.position.set(-1, 3, -15);
+    boxMesh.castShadow = true;
+    boxMesh.receiveShadow = true;
+    boxes.push(boxBody);
+    boxMeshes.push(boxMesh);
 
-   var boxBody = new CANNON.Body({ mass: 1 });
-   boxBody.addShape(boxShape);
-   var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
-   world.addBody(boxBody);
-   scene.add(boxMesh);
-   boxBody.position.set(1, 3, -15);
-   boxBody.fixedRotation = true;
-   boxMesh.position.set(1, 3, -15);
-   boxMesh.castShadow = true;
-   boxMesh.receiveShadow = true;
-   boxes.push(boxBody);
-   boxMeshes.push(boxMesh);
-   //top box
+    var boxBody = new CANNON.Body({ mass: 1 });
+    boxBody.addShape(boxShape);
+    var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
+    world.addBody(boxBody);
+    scene.add(boxMesh);
+    boxBody.position.set(1, 3, -15);
+    boxBody.fixedRotation = true;
+    boxMesh.position.set(1, 3, -15);
+    boxMesh.castShadow = true;
+    boxMesh.receiveShadow = true;
+    boxes.push(boxBody);
+    boxMeshes.push(boxMesh);
 
-   var boxGeometry = new THREE.BoxGeometry(
-    halfExtents.x * 2,
-    halfExtents.y * 2,
-    halfExtents.z * 2
-);
+    // other size of object
+    var boxGeometry = new THREE.BoxGeometry(
+        halfExtents.x * 2,
+        halfExtents.y * 2,
+        halfExtents.z * 2
+    );
 
-var boxBody = new CANNON.Body({ mass: 1 });
-boxBody.addShape(boxShape);
-var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
-world.addBody(boxBody);
-scene.add(boxMesh);
-boxBody.position.set(-1, 5, -15);
-boxBody.fixedRotation = true;
-boxMesh.position.set(-1, 5, -15);
-boxMesh.castShadow = true;
-boxMesh.receiveShadow = true;
-boxes.push(boxBody);
-boxMeshes.push(boxMesh);
+    var boxBody = new CANNON.Body({ mass: 1 });
+    boxBody.addShape(boxShape);
+    var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
+    world.addBody(boxBody);
+    scene.add(boxMesh);
+    boxBody.position.set(-1, 5, -15);
+    boxBody.fixedRotation = true;
+    boxMesh.position.set(-1, 5, -15);
+    boxMesh.castShadow = true;
+    boxMesh.receiveShadow = true;
+    boxes.push(boxBody);
+    boxMeshes.push(boxMesh);
 
-var boxBody = new CANNON.Body({ mass: 1 });
-boxBody.addShape(boxShape);
-var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
-world.addBody(boxBody);
-scene.add(boxMesh);
-boxBody.position.set(1, 5, -15);
-boxBody.fixedRotation = true;
-boxMesh.position.set(1, 5, -15);
-boxMesh.castShadow = true;
-boxMesh.receiveShadow = true;
-boxes.push(boxBody);
-boxMeshes.push(boxMesh);
+    var boxBody = new CANNON.Body({ mass: 1 });
+    boxBody.addShape(boxShape);
+    var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
+    world.addBody(boxBody);
+    scene.add(boxMesh);
+    boxBody.position.set(1, 5, -15);
+    boxBody.fixedRotation = true;
+    boxMesh.position.set(1, 5, -15);
+    boxMesh.castShadow = true;
+    boxMesh.receiveShadow = true;
+    boxes.push(boxBody);
+    boxMeshes.push(boxMesh);
 
-var boxGeometry = new THREE.BoxGeometry(
-    halfExtents.x * 0.3,
-    halfExtents.y * 2,
-    halfExtents.z * 2
-);
+    //other size of object
+    var boxGeometry = new THREE.BoxGeometry(
+        halfExtents.x * 0.3,
+        halfExtents.y * 2,
+        halfExtents.z * 2
+    );
 
-   var boxBody = new CANNON.Body({ mass: 1 });
-   boxBody.addShape(boxShape);
-   var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
-   world.addBody(boxBody);
-   scene.add(boxMesh);
-   boxBody.position.set(0, 7, -15);
-   boxBody.fixedRotation = true;
-   boxMesh.position.set(0, 7, -15);
-   boxMesh.castShadow = true;
-   boxMesh.receiveShadow = true;
-   boxes.push(boxBody);
-   boxMeshes.push(boxMesh);
+    var boxBody = new CANNON.Body({ mass: 1 });
+    boxBody.addShape(boxShape);
+    var boxMesh = new THREE.Mesh(boxGeometry, stoneMaterial);
+    world.addBody(boxBody);
+    scene.add(boxMesh);
+    boxBody.position.set(0, 7, -15);
+    boxBody.fixedRotation = true;
+    boxMesh.position.set(0, 7, -15);
+    boxMesh.castShadow = true;
+    boxMesh.receiveShadow = true;
+    boxes.push(boxBody);
+    boxMeshes.push(boxMesh);
 
-   var boxGeometry = new THREE.BoxGeometry(
-    halfExtents.x * 2,
-    halfExtents.y * 2,
-    halfExtents.z * 2
-);
+    //other size of object
+    var boxGeometry = new THREE.BoxGeometry(
+        halfExtents.x * 2,
+        halfExtents.y * 2,
+        halfExtents.z * 2
+    );
 
-   var boxBody = new CANNON.Body({ mass: 1 });
-   boxBody.addShape(boxShape);
-   var boxMesh = new THREE.Mesh(boxGeometry, magmaMaterial);
-   world.addBody(boxBody);
-   scene.add(boxMesh);
-   boxBody.position.set(0, 9, -15);
-   boxBody.fixedRotation = true;
-   boxMesh.position.set(0, 9, -15);
-   boxMesh.castShadow = true;
-   boxMesh.receiveShadow = true;
-   boxes.push(boxBody);
-   boxMeshes.push(boxMesh);
+    var boxBody = new CANNON.Body({ mass: 1 });
+    boxBody.addShape(boxShape);
+    var boxMesh = new THREE.Mesh(boxGeometry, magmaMaterial);
+    world.addBody(boxBody);
+    scene.add(boxMesh);
+    boxBody.position.set(0, 9, -15);
+    boxBody.fixedRotation = true;
+    boxMesh.position.set(0, 9, -15);
+    boxMesh.castShadow = true;
+    boxMesh.receiveShadow = true;
+    boxes.push(boxBody);
+    boxMeshes.push(boxMesh);
 
 }
 
+// setup window
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
+
+// setup object movement
 var dt = 1 / 60;
 function animate5() {
     requestAnimationFrame(animate5);
@@ -301,13 +322,14 @@ function animate5() {
         for (var i = 0; i < boxes.length; i++) {
             boxMeshes[i].position.copy(boxes[i].position);
             boxMeshes[i].quaternion.copy(boxes[i].quaternion);
-                    if(boxMeshes[7].position.y < 1.21111)
-                    {
-                        stage_clear = true;
-                        console.log(stage_clear);
-                        document.exitPointerLock();
-                        clear();
-                    }
+
+            //clear option
+            if (boxMeshes[7].position.y < 1.21111) {
+                stage_clear = true;
+                console.log(stage_clear);
+                document.exitPointerLock();
+                clear();
+            }
         }
     }
     controls.update(Date.now() - time);

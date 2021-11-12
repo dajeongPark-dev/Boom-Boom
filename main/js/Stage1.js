@@ -66,7 +66,7 @@ function init1() {
         1000
     );
 
-    // define new scere
+    // define new scene
     scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x000000, 0, 500);
 
@@ -205,6 +205,8 @@ function animate1() {
         for (var i = 0; i < boxes.length; i++) {
             boxMeshes[i].position.copy(boxes[i].position);
             boxMeshes[i].quaternion.copy(boxes[i].quaternion);
+
+            // clear option
             if (boxMeshes[2].position.y < 1.21111) {
                 stage_clear = true;
                 document.exitPointerLock();
