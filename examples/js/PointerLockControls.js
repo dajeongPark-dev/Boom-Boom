@@ -65,27 +65,24 @@
 
             case 38: // up
             case 87: // w
-                moveForward = true;
+                moveForward = false;
                 break;
 
             case 37: // left
             case 65: // a
-                moveLeft = true; break;
+                moveLeft = false; break;
 
             case 40: // down
             case 83: // s
-                moveBackward = true;
+                moveBackward = false;
                 break;
 
             case 39: // right
             case 68: // d
-                moveRight = true;
+                moveRight = false;
                 break;
 
             case 32: // space
-                if ( canJump === true ){
-                    velocity.y = jumpVelocity;
-                }
                 canJump = false;
                 break;
         }
