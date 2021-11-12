@@ -151,7 +151,6 @@
             loader.options.convertUpAxis = true;
             // Customizing cannon from main html
             var custom=JSON.parse(localStorage.getItem('color'));
-            console.log(custom);
             loader.load(custom, function(collada) {
                 var dae = collada.scene;
                 dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
@@ -240,7 +239,6 @@
     // Adjusting the number of balls
     window.addEventListener("mouseup", function (e) {
         clearInterval(timer);
-        console.log(shootVelo);
         num_try = num_try + 1;
         switch (num_try){
             case 2:
@@ -254,7 +252,6 @@
                 break;
         }
         // Continue tossing if there are still more balls available
-        console.log(num_try)
         if (controls.enabled == true && num_try < 5) {
             var x = sphereBody.position.x;
             var y = sphereBody.position.y;
@@ -301,7 +298,6 @@
     // If cleared stage, display "success" blocker
     function clear() {
         if (stage_clear === true && reset_state === false) {
-            console.log(stage_clear);
             controls.enabled = false;
             blocker.style.display = '-webkit-box';
             blocker.style.display = '-moz-box';
