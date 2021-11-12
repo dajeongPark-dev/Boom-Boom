@@ -284,6 +284,8 @@ function animate2() {
         for (var i = 0; i < boxes.length; i++) {
             boxMeshes[i].position.copy(boxes[i].position);
             boxMeshes[i].quaternion.copy(boxes[i].quaternion);
+
+            // clear option
             if (boxMeshes[12].position.y < 1.21111) {
                 scene.remove(boxMeshes[12]);
                 stage_clear = true;
