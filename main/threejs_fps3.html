@@ -93,7 +93,7 @@
                 Stage 3<br />
             </span>
             <span id='text2' style="font-size:36px">
-                If you fall all 3 red cones, stage cleared!
+                If you fall the magma box, stage cleared!
             </span>
 
             <br />
@@ -306,7 +306,7 @@
                 shootVelo = 5;
             }
             else {
-                if (stage_clear === false && num_try >= 7) {
+                if (stage_clear === false && num_try >= 5) {
                     controls.enabled = false;
                     blocker.style.display = '-webkit-box';
                     blocker.style.display = '-moz-box';
@@ -331,7 +331,7 @@
                 blocker.style.display = '-moz-box';
                 blocker.style.display = 'box';
                 text2.innerHTML = ""
-                text.innerHTML = "Clear Stage 5!!"
+                text.innerHTML = "Clear Stage 3!!"
                 instructions.style.display = '';
                 start_btn.style.display='none';
             }
@@ -359,7 +359,7 @@
         }
 
         function start_or_restart(){
-            if(stage_clear === false&& num_try >= 5) {
+            if(stage_clear === false&& num_try >=5) {
                 self.close();
                 // reload tab
                 window.location.reload();
