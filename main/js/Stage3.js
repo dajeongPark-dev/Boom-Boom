@@ -1,9 +1,11 @@
 function stage3() {
+    // init stage3
     initCannon3();
     init3();
     animate3();
 }
 function initCannon3() {
+
     // Setup our world
     world = new CANNON.World();
     world.quatNormalizeSkip = 0;
@@ -16,9 +18,11 @@ function initCannon3() {
     var split = true;
     if (split) world.solver = new CANNON.SplitSolver(solver);
     else world.solver = solver;
+
+    // set world's gravity
     world.gravity.set(0, -9, 0);
     world.broadphase = new CANNON.NaiveBroadphase();
-    // Create a slippery material (friction coefficient = 0.0)
+
     physicsMaterial = new CANNON.Material("slipperyMaterial");
     var physicsContactMaterial = new CANNON.ContactMaterial(
         physicsMaterial,
@@ -26,9 +30,11 @@ function initCannon3() {
         0.0,// friction coefficient
         0.3 // restitution
     );
+
     // We must add the contact materials to the world
     world.addContactMaterial(physicsContactMaterial);
-    // Create a sphere
+
+    // Create a cannon ball sphere
     var mass = 5,
         radius = 1.3;
     sphereShape = new CANNON.Sphere(radius);
@@ -37,6 +43,7 @@ function initCannon3() {
     sphereBody.position.set(0, 5, 3);
     sphereBody.linearDamping = 0.9;
     world.addBody(sphereBody);
+
     // Create a plane
     var groundShape = new CANNON.Plane();
     var groundBody = new CANNON.Body({ mass: 0 });
@@ -48,15 +55,22 @@ function initCannon3() {
     world.addBody(groundBody);
 }
 
+// setup scene
 function init3() {
+
+    // setup camera
     camera = new THREE.PerspectiveCamera(
         75,
         window.innerWidth / window.innerHeight,
         0.1,
         1000
     );
+
+    // define new scene
     scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x3770EB, 0, 500);
+
+    // light option
     var ambient = new THREE.AmbientLight(0x111111);
     scene.add(ambient);
     light = new THREE.SpotLight(0xffffff);
@@ -74,20 +88,24 @@ function init3() {
         //light.shadowCameraVisible = true;
     }
     scene.add(light);
+
     controls = new PointerLockControls(camera, sphereBody);
     scene.add(controls.getObject());
-
+    
+    // load texture img
     THREE.ImageUtils.crossOrigin = '';
     var texture = THREE.ImageUtils.loadTexture('images_stage/ground_grass.jpg');
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(50, 50);
 
+    // object texture floor
     var material_floor = new THREE.MeshPhongMaterial({
         map: texture,
         bumpMap: texture,
         bumpScale: 0.03
     })
 
+    // object texture wall
     var texture_wall_stone = THREE.ImageUtils.loadTexture('images_stage/wall-gad.jpg');
     var material_wall = new THREE.MeshPhongMaterial({
         map: texture_wall_stone,
@@ -95,6 +113,7 @@ function init3() {
         bumpScale: 0.03
     })
 
+    // object texture door
     var texture_door_wood = THREE.ImageUtils.loadTexture('images_stage/wood_door.jpg');
     var material_door = new THREE.MeshPhongMaterial({
         map: texture_door_wood,
@@ -107,14 +126,16 @@ function init3() {
     material_green = new THREE.MeshLambertMaterial({ color: 0x3FAB7A });
     material_red = new THREE.MeshLambertMaterial({ color: 0xAC170B });
 
-    // floor
+    // floor option
     geometry = new THREE.PlaneGeometry(300, 300, 50, 50);
     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
 
+    // texture mapping
     mesh = new THREE.Mesh(geometry, material_floor);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
     scene.add(mesh);
+
     renderer = new THREE.WebGLRenderer();
     renderer.shadowMapEnabled = true;
     renderer.shadowMapSoft = true;
@@ -122,8 +143,6 @@ function init3() {
     renderer.setClearColor(scene.fog.color, 1);
     document.body.appendChild(renderer.domElement);
     window.addEventListener("resize", onWindowResize, false);
-
-    //box
 
 
     // Add boxes
@@ -134,6 +153,8 @@ function init3() {
         halfExtents.y * 2,
         halfExtents.z * 2
     );
+
+    // object
     // 1st floor
     // box 1-1
     var boxBody = new CANNON.Body({ mass: 1 });
@@ -149,7 +170,6 @@ function init3() {
     boxes = [], boxMeshes = [];
     boxes.push(boxBody);
     boxMeshes.push(boxMesh);
-    // 1st floor
     // box 1-1
     var boxBody = new CANNON.Body({ mass: 1 });
     boxBody.addShape(boxShape);
@@ -470,12 +490,13 @@ function init3() {
     ///////////////////////////////////////////////////////////////
 
 }
-
+// setup window
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
+//setup object movement
 var dt = 1 / 60;
 function animate3() {
     requestAnimationFrame(animate3);
@@ -495,14 +516,10 @@ function animate3() {
             boxMeshes[i].quaternion.copy(boxes[i].quaternion);
 
         }
-        //cylMeshes = [], cylinders = [];
         for (var i = 0; i < cylinders.length; i++) {
             cylMeshes[i].position.copy(cylinders[i].position);
             cylMeshes[i].quaternion.copy(cylinders[i].quaternion);
-            // remove cones if it fall
-            // console.log(cylMeshes[0].position.y);
             if (cylMeshes[0].position.y < 1.21111 && cylMeshes[1].position.y < 1.21111 && cylMeshes[2].position.y < 1.21111) {
-                //scene.remove(boxMeshes[2]);
                 stage_clear = true;
                 document.exitPointerLock();
                 clear();
