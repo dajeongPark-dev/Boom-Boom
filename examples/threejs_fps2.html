@@ -92,7 +92,7 @@
             <br />
             <button class="next" onClick="location.href='threejs_fps3.html'"> NEXT </button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
-            <button class="done" onClick='self.close()'> START </button>
+            <button id = 'start' class="done" onClick = 'howStart()'> START </button>
         </div>
         
     </div>
@@ -119,6 +119,7 @@
         var controls, time = Date.now();
         var blocker = document.getElementById('blocker');
         var instructions = document.getElementById('instructions');
+        var start = document.getElementById('start')
         // var next = document.getElementById("next");
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
@@ -142,7 +143,22 @@
                 instructions.style.display = '';
             }
             // Hook pointer lock state change events
+            start.addEventListener('click',function(){
+                
 
+            })
+            function howStart(){
+                
+                if(stage_clear===false&& num_try<5){
+                    self.close();
+                }
+                else {
+                    window.location.href = "threejs_fps2.html";
+                    blocker.style.display = 'none';
+                }
+            }
+
+            
             document.addEventListener('pointerlockchange', pointerlockchange, false);
             document.addEventListener('mozpointerlockchange', pointerlockchange, false);
             document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
@@ -312,7 +328,7 @@
                     blocker.style.display = 'box';
                     instructions.style.display = '';
                     text.innerHTML = "Fail!! \n"
-                    text2.innerHTML = "Try again"
+                    text2.innerHTML = "\nTry again"
                     document.exitPointerLock();
                 }
                 console.log("out of ball");
