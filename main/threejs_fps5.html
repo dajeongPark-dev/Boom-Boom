@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-
 <head>
 
     <meta charset="utf-8">
@@ -21,7 +20,7 @@
             margin: 0;
             overflow: hidden;
             font-family: arial;
-			default;
+            default;
         }
 
         #power {
@@ -40,19 +39,20 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
         }
-		
-		#crosshair{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 2%;
-        transform: translate(-50%, -50%);
-        }
-        #game_hud{
-        visibility: hidden;
+
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2%;
+            transform: translate(-50%, -50%);
         }
 
-        #num_ball{
+        #game_hud {
+            visibility: hidden;
+        }
+
+        #num_ball {
             position: absolute;
             top: 8%;
             margin: 20px;
@@ -61,9 +61,9 @@
         }
 
         button {
-            font-size:20px;
+            font-size: 20px;
             font-family: 'Bebas Neue', cursive;
-            color : rgb(22, 52, 90);
+            color: rgb(22, 52, 90);
         }
     </style>
 
@@ -86,7 +86,7 @@
     <script>var num_try;</script>
     <div id="blocker">
         <div id="instructions">
-            
+
             <span id='text' style="font-size:100px">
                 Stage 5<br />
             </span>
@@ -95,7 +95,7 @@
             </span>
             <br />
 
-            <button class="done" id ='start_btn' onClick='start_or_restart()'> START </button>
+            <button class="done" id='start_btn' onClick='start_or_restart()'> START </button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
         </div>
         <div id="success">
@@ -105,13 +105,13 @@
     </div>
     <div id='power'>0</div>
     <div id="game_hud">
-      <img id="crosshair" src="images_stage/crosshair.png" />
+        <img id="crosshair" src="images_stage/crosshair.png" />
         <div id="num_ball">
             <table>
                 <tr>
-                    <td><img id='ball1' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
-                    <td><img id='ball2' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
-                    <td><img id='ball3' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
+                    <td><img id='ball1' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
+                    <td><img id='ball2' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
+                    <td><img id='ball3' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
                     <td><img id='ball4' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
                     <td><img id='ball5' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
                 </tr>
@@ -129,27 +129,28 @@
         var instructions = document.getElementById('instructions');
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
+        // When game stopped, pointer lock start
         if (havePointerLock) {
             var element = document.body;
             var pointerlockchange = function (event) {
                 if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
                     controls.enabled = true;
                     blocker.style.display = 'none';
-					document.getElementById("game_hud").style.visibility = 'visible';
+                    document.getElementById("game_hud").style.visibility = 'visible';
                 } else {
                     controls.enabled = false;
                     blocker.style.display = '-webkit-box';
                     blocker.style.display = '-moz-box';
                     blocker.style.display = 'box';
                     instructions.style.display = '';
-					document.getElementById("game_hud").style.visibility = 'hidden';
+                    document.getElementById("game_hud").style.visibility = 'hidden';
                 }
             }
             var pointerlockerror = function (event) {
                 instructions.style.display = '';
             }
-            // Hook pointer lock state change events
 
+            // Hook pointer lock state change events
             document.addEventListener('pointerlockchange', pointerlockchange, false);
             document.addEventListener('mozpointerlockchange', pointerlockchange, false);
             document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
@@ -158,59 +159,45 @@
             document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
             instructions.addEventListener('click', function (event) {
 
+                // Load cannon
                 var loader = new THREE.ColladaLoader();
-    loader.options.convertUpAxis = true;
+                loader.options.convertUpAxis = true;
+                // Customizing cannon from main html
+                var custom = JSON.parse(localStorage.getItem('color'));
 
-    var custom=JSON.parse(localStorage.getItem('color'));
-    console.log(custom);
+                loader.load(custom, function (collada) {
 
-    loader.load(custom, function(collada) {
-    // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
-    // scene.add(collada.scene);
-    
-    dae = collada.scene;
-    
-   // var skin = collada.skins[0];
-   // dae.position.set(0, 0, 0);
+                    dae = collada.scene;
 
-    
-    
-    dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
-    dae.position.set(0, -1.1, 0);
-
-    
-    var scope = this;
-    var PI_2 = Math.PI * 2;
-    var onMouseMoveForCannon = function (event) {
-
-        if (scope.enabled === false) return;
-
-        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
-
-        dae.rotation.y -= movementX * 0.002;
-        dae.rotation.x -= movementY * 0.002;
-        dae.rotation.z -= movementZ * 0.002;
-
-        dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
-        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
-        //dae.rotation.z = Math.max(-PI_2, Math.min(PI_2, dae.rotation.z));
-        dae.updateMatrix();
-    
-    
-        scene.add(dae);
+                    dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
+                    dae.position.set(0, -1.1, 0);
 
 
-    };
-    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+                    var scope = this;
+                    var PI_2 = Math.PI * 2;
 
+                    // Adjust the angle of the cannon according to the mouse pointer
+                    var onMouseMoveForCannon = function (event) {
 
+                        if (scope.enabled === false) return;
 
-    
-    }); 
-                
+                        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+                        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+                        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
+
+                        dae.rotation.y -= movementX * 0.002;
+                        dae.rotation.x -= movementY * 0.002;
+                        dae.rotation.z -= movementZ * 0.002;
+
+                        dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
+                        dae.updateMatrix();
+                        scene.add(dae);
+                    };
+                    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+                });
+
                 instructions.style.display = 'none';
+
                 // Ask the browser to lock the pointer
                 element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
                 if (/Firefox/i.test(navigator.userAgent)) {
@@ -233,16 +220,17 @@
             instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
         }
 
-        var stageStage = 5;
-        switch (stageStage) {
-            case 5:
-                stage5();
-                break;
-        }
-        //Erased innitCannon(), init(), anmaite() code
+        // Init game environment
+        stage5();
+
+        // Create ball object
         var ballShape = new CANNON.Sphere(0.2);
         var ballGeometry = new THREE.SphereGeometry(ballShape.radius, 32, 32);
+
+        // set shoot direction
         var shootDirection = new THREE.Vector3();
+
+        // Setting the ball's firing strength
         var shootVelo = 5;
         var projector = new THREE.Projector();
         function getShootDir(targetVec) {
@@ -254,20 +242,22 @@
         }
         num_try = 0;
 
+        // The more time you press the mouse, the stronger the intensity becomes
         window.addEventListener("mousedown", function (e) {
 
             timer = setInterval(function () {
-                if(shootVelo<40){
+                if (shootVelo < 40) {
                     shootVelo += 4;
-                power.innerHTML = shootVelo;
+                    power.innerHTML = shootVelo;
                 }
-                else{
+                else {
                     power.innerHTML = 'MAX';
-                }              
+                }
             }, 100);
 
         });
 
+        // Adjusting the number of balls
         window.addEventListener("mouseup", function (e) {
             clearInterval(timer);
             console.log(shootVelo);
@@ -289,7 +279,7 @@
                     document.getElementById("ball1").style.visibility = 'hidden';
                     break;
             }
-            console.log(num_try)
+            // Continue tossing if there are still more balls available
             if (controls.enabled == true && num_try < 7) {
                 var x = sphereBody.position.x;
                 var y = sphereBody.position.y;
@@ -317,7 +307,8 @@
                 shootVelo = 5;
             }
             else {
-                if(stage_clear === false&& num_try >=7){
+                // Shows a "failure" blocker when the number of remaining balls is 0 and failure
+                if (stage_clear === false && num_try >= 7) {
                     controls.enabled = false;
                     blocker.style.display = '-webkit-box';
                     blocker.style.display = '-moz-box';
@@ -329,14 +320,13 @@
                     btnElement.innerText = 'RESTART';
                     document.exitPointerLock();
                 }
-                console.log("out of ball");
             }
         });
 
+        // If cleared stage, display "success" blocker
         function clear() {
 
             if (stage_clear === true && reset_state === false) {
-                console.log(stage_clear);
                 controls.enabled = false;
                 blocker.style.display = '-webkit-box';
                 blocker.style.display = '-moz-box';
@@ -344,40 +334,29 @@
                 text2.innerHTML = ""
                 text.innerHTML = "Clear Stage5!!"
                 instructions.style.display = '';
-                start_btn.style.display='none';
+                start_btn.style.display = 'none';
             }
-            //clear 화면 없애기
             if (stage_clear === true) {
                 window.addEventListener("click", function () {
                     controls.enabled = true;
-                    console.log('clicked');
                     reset_state = true;
-                    console.log(reset_state);
                     blocker.style.display = 'none';
-                    
                     stage_clear = false;
-                    console.log(stage_clear);
-                    // reset_state = false;
-                    // console.log(reset_state);
-                    //scene.remove(boxMeshes[0]);
-                    //scene.remove(boxMeshes[1]);
-                    console.log(boxes.length + 'before');
                     boxes.splice(0, boxes.length)
                     boxMeshes.splice(0, boxMeshes.length)
-                    console.log(boxes.length + 'after');
-                    //stageStage++;
                 });
             }
 
         }
 
-        function start_or_restart(){
-            if(stage_clear === false&& num_try >=7) {
+        // If failed to stage, reload game
+        function start_or_restart() {
+            if (stage_clear === false && num_try >= 7) {
                 self.close();
                 // reload tab
                 window.location.reload();
             }
-            else{
+            else {
                 self.close();
             }
         }
