@@ -76,8 +76,18 @@ function init5() {
     controls = new PointerLockControls(camera, sphereBody);
     scene.add(controls.getObject());
     // floor
-	var floorTexture = THREE.ImageUtils.loadTexture("images_stage/grass.png");
-	var floorMaterial = new THREE.MeshBasicMaterial ({map:floorTexture});
+	
+    THREE.ImageUtils.crossOrigin = '';
+    var texture = THREE.ImageUtils.loadTexture('images_stage/grass2.jpg');
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(50, 50);
+
+    var floorMaterial = new THREE.MeshPhongMaterial({
+        map: texture,
+        bumpMap: texture,
+        bumpScale: 0.03
+    })
+
     geometry = new THREE.PlaneGeometry(300, 300, 50, 50);
     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
     material = new THREE.MeshLambertMaterial({ color: 0xdddddd });
