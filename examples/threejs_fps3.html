@@ -37,18 +37,19 @@
             background-color: rgba(0, 0, 0, 0.5);
         }
 
-        #crosshair{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 2%;
-        transform: translate(-50%, -50%);
-        }
-        #game_hud{
-        visibility: hidden;
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2%;
+            transform: translate(-50%, -50%);
         }
 
-        #num_ball{
+        #game_hud {
+            visibility: hidden;
+        }
+
+        #num_ball {
             position: absolute;
             top: 8%;
             margin: 20px;
@@ -56,7 +57,7 @@
             transform: translate(-50%, -50%);
         }
 
-        #instructions{
+        #instructions {
             width: 100%;
             height: 100%;
             display: -webkit-box;
@@ -91,7 +92,7 @@
     <script src="js/Stage1.js"></script>
 
     <script src="js/Stage3.js"></script>
-    
+
 
 
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r69/examples/js/loaders/ColladaLoader.js"></script>
@@ -100,9 +101,9 @@
 
     <div id="blocker">
         <div id="instructions">
-            <span id = 'text' style="font-size:36px">stage 3<br />
-            If you fall green block, stage cleared!</span>
-            
+            <span id='text' style="font-size:36px">stage 3<br />
+                If you fall all 3 red cones, stage cleared!</span>
+
             <br />
             <button class="next" onClick="location.href='threejs_fps4.html'"> Next </button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
@@ -110,17 +111,19 @@
         </div>
     </div>
     <div id='power'>0</div>
-	    <div id="game_hud">
-      <img id="crosshair" src="images_stage/crosshair.png" />
-      <div id="num_ball">
-        <table>
-            <tr>
-                <td><img id='ball1' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
-                <td><img id='ball2' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
-                <td><img id='ball3' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
-            </tr>
-        </table>
-    </div>
+    <div id="game_hud">
+        <img id="crosshair" src="images_stage/crosshair.png" />
+        <div id="num_ball">
+            <table>
+                <tr>
+                    <td><img id='ball1' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
+                    <td><img id='ball2' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
+                    <td><img id='ball3' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
+                    <td><img id='ball4' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
+                    <td><img id='ball5' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
+                </tr>
+            </table>
+        </div>
     </div>
     <script>
         var sphereShape, sphereBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [], cylMeshes = [], cylinders = [];
@@ -140,14 +143,14 @@
                 if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
                     controls.enabled = true;
                     blocker.style.display = 'none';
-					document.getElementById("game_hud").style.visibility = 'visible';
+                    document.getElementById("game_hud").style.visibility = 'visible';
                 } else {
                     controls.enabled = false;
                     blocker.style.display = '-webkit-box';
                     blocker.style.display = '-moz-box';
                     blocker.style.display = 'box';
                     instructions.style.display = '';
-					document.getElementById("game_hud").style.visibility = 'hidden';
+                    document.getElementById("game_hud").style.visibility = 'hidden';
                 }
             }
             var pointerlockerror = function (event) {
@@ -163,50 +166,50 @@
             document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
             instructions.addEventListener('click', function (event) {
                 var loader = new THREE.ColladaLoader();
-    loader.options.convertUpAxis = true;
+                loader.options.convertUpAxis = true;
 
-    var custom=JSON.parse(localStorage.getItem('color'));
-    console.log(custom);
+                var custom = JSON.parse(localStorage.getItem('color'));
+                console.log(custom);
 
-    loader.load(custom, function(collada) {
-    // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
-    // scene.add(collada.scene);
-    
-    dae = collada.scene;
-    
-   // var skin = collada.skins[0];
-   // dae.position.set(0, 0, 0);
-    dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
-    dae.position.set(0, -1.1, 0);
+                loader.load(custom, function (collada) {
+                    // collada.scene.scale.set(0.0001, 0.0001, 0.0001);
+                    // scene.add(collada.scene);
 
-    var scope = this;
-    var PI_2 = Math.PI * 2;
-    var onMouseMoveForCannon = function (event) {
+                    dae = collada.scene;
 
-        if (scope.enabled === false) return;
+                    // var skin = collada.skins[0];
+                    // dae.position.set(0, 0, 0);
+                    dae.scale.x = dae.scale.y = dae.scale.z = 0.04;
+                    dae.position.set(0, -1.1, 0);
 
-        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
+                    var scope = this;
+                    var PI_2 = Math.PI * 2;
+                    var onMouseMoveForCannon = function (event) {
 
-        dae.rotation.y -= movementX * 0.002;
-        dae.rotation.x -= movementY * 0.002;
-        dae.rotation.z -= movementZ * 0.002;
+                        if (scope.enabled === false) return;
 
-        dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
-        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
-        //dae.rotation.z = Math.max(-PI_2, Math.min(PI_2, dae.rotation.z));
-        dae.updateMatrix();
-    
-    
-        scene.add(dae);
+                        var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+                        var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+                        var movementZ = event.movementZ || event.mozMovementZ || event.webkitMovementZ || 0;
+
+                        dae.rotation.y -= movementX * 0.002;
+                        dae.rotation.x -= movementY * 0.002;
+                        dae.rotation.z -= movementZ * 0.002;
+
+                        dae.rotation.x = Math.max(- PI_2, Math.min(PI_2, dae.rotation.x));
+                        // cannon.rotation.y = Math.max(- PI_2, Math.min(PI_2, cannon.rotation.y));
+                        //dae.rotation.z = Math.max(-PI_2, Math.min(PI_2, dae.rotation.z));
+                        dae.updateMatrix();
 
 
-    };
-    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+                        scene.add(dae);
 
 
-    }); 
+                    };
+                    window.addEventListener('mousemove', onMouseMoveForCannon, false);
+
+
+                });
 
 
                 instructions.style.display = 'none';
@@ -269,20 +272,26 @@
             console.log(shootVelo);
             power.innerHTML = shootVelo;
             num_try = num_try + 1;
-            switch (num_try){
+            switch (num_try) {
                 case 2:
-                    document.getElementById("ball3").style.visibility = 'hidden';
+                    document.getElementById("ball5").style.visibility = 'hidden';
                     break;
                 case 3:
-                    document.getElementById("ball2").style.visibility = 'hidden';
+                    document.getElementById("ball4").style.visibility = 'hidden';
                     break;
                 case 4:
+                document.getElementById("ball3").style.visibility = 'hidden';
+                    break;
+                case 5:
+                    document.getElementById("ball2").style.visibility = 'hidden';
+                    break;
+                case 6:
                     document.getElementById("ball1").style.visibility = 'hidden';
                     break;
             }
 
             console.log(num_try)
-            if (controls.enabled == true && num_try < 5) {
+            if (controls.enabled == true && num_try < 7) {
                 var x = sphereBody.position.x;
                 var y = sphereBody.position.y;
                 var z = sphereBody.position.z;
@@ -309,13 +318,13 @@
                 shootVelo = 5;
             }
             else {
-                if(stage_clear === false&& num_try >= 5){
+                if (stage_clear === false && num_try >= 7) {
                     controls.enabled = false;
                     blocker.style.display = '-webkit-box';
                     blocker.style.display = '-moz-box';
                     blocker.style.display = 'box';
                     instructions.style.display = '';
-                    text.innerHTML="Fail!!"
+                    text.innerHTML = "Fail!!"
                     document.exitPointerLock();
                 }
                 console.log("out of ball");
@@ -324,37 +333,37 @@
 
         function clear() {
 
-if (stage_clear === true && reset_state === false) {
-    console.log(stage_clear);
-    controls.enabled = false;
-    blocker.style.display = '-webkit-box';
-    blocker.style.display = '-moz-box';
-    blocker.style.display = 'box';
-    text.innerHTML = "Clear Stage4!!"
-    instructions.style.display = '';
+            if (stage_clear === true && reset_state === false) {
+                console.log(stage_clear);
+                controls.enabled = false;
+                blocker.style.display = '-webkit-box';
+                blocker.style.display = '-moz-box';
+                blocker.style.display = 'box';
+                text.innerHTML = "Clear Stage4!!"
+                instructions.style.display = '';
 
-}
-//clear 화면 없애기
-if (stage_clear === true) {
-    window.addEventListener("click", function () {
-        controls.enabled = true;
-        console.log('clicked');
-        reset_state = true;
-        console.log(reset_state);
-        blocker.style.display = 'none';
-        stage_clear = false;
-        console.log(stage_clear);
-        // reset_state = false;
-        // console.log(reset_state);
-        //scene.remove(boxMeshes[0]);
-        //scene.remove(boxMeshes[1]);
-        console.log(boxes.length + 'before');
-        boxes.splice(0, boxes.length)
-        boxMeshes.splice(0, boxMeshes.length)
-        console.log(boxes.length + 'after');
-        //stageStage++;
-    });
-}
+            }
+            //clear 화면 없애기
+            if (stage_clear === true) {
+                window.addEventListener("click", function () {
+                    controls.enabled = true;
+                    console.log('clicked');
+                    reset_state = true;
+                    console.log(reset_state);
+                    blocker.style.display = 'none';
+                    stage_clear = false;
+                    console.log(stage_clear);
+                    // reset_state = false;
+                    // console.log(reset_state);
+                    //scene.remove(boxMeshes[0]);
+                    //scene.remove(boxMeshes[1]);
+                    console.log(boxes.length + 'before');
+                    boxes.splice(0, boxes.length)
+                    boxMeshes.splice(0, boxMeshes.length)
+                    console.log(boxes.length + 'after');
+                    //stageStage++;
+                });
+            }
         }
 
 
