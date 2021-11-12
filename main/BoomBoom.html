@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+    <title>Boom Boom</title>
+    <link rel="stylesheet" type="text/css" href="css/BoomBoom.css">
+    <style>
+        .head1 {
+            font-size: 40px;
+            color: #9e0892;
+            font-weight: bold;
+            background-color: #DCDBDB;
+            margin-top: 20px;
+        }
+
+        .img_logo {
+            display: block;
+            margin: auto;
+            width: 630px;
+            height: 280px;
+        }
+
+        body {
+            margin-left: 0 auto;
+            background-position: center;
+            background-size: contain;
+            background-color: #DCDBDB;
+        }
+
+        .menu {
+            position: sticky;
+            top: 0;
+            background-color: 1e1e1e;
+            padding: 10px 0px 10px 0px;
+            color: white;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .menu a {
+            float: left;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .menu-log {
+            right: auto;
+            float: right;
+        }
+
+        footer {
+            width: 100%;
+            bottom: 0px;
+            background-color: #000;
+            color: #fff;
+            position: relative;
+            padding-top: 20px;
+            padding-bottom: 50px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .body_sec {
+            margin-left: 100px;
+            margin-right: 100px;
+            color: black;
+
+        }
+
+        .headline {
+            font-family: 'Road Rage', cursive;
+            font-size: 38px;
+        }
+
+        .btn_stage_img {
+            position: relative;
+            width: 400px;
+            height: 250px;
+        }
+
+        .btn_stage_img .btn_stage_text {
+            position: absolute;
+            top: 40px;
+            left: 80px;
+        }
+
+        p {
+            font-size: 28px;
+            font-family: 'Road Rage', cursive;
+            color: #444444;
+        }
+        .prev{
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size : 28px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            transition-duration: 0.4s;
+        }
+        .prev:hover{
+            background-color: #444444;
+            color: white;
+        }
+
+        .next{
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 28px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            transition-duration: 0.4s;
+        }
+        .next:hover{
+            background-color: #444444;
+            color: white;
+        }
+        #cannon_photo{
+            width:80%;
+        }
+        .tb{
+            margin-left:auto;
+            margin-right:auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="head1">
+            <img class="img_logo" src="images_stage/logo2.png" alt="logo" />
+        </div>
+    </header>
+
+    <!-- Menu Navigation Bar -->
+
+    <div class="menu">
+        <!-- <a href="#home">HOME</a>
+		<a href="#news">NEWS</a>
+		<a href="#notification">NOTIFICATIONS</a>
+		<div class="menu-log">
+			<a href="#login">LOGIN</a>
+		</div> -->
+    </div>
+
+    <!-- Body section -->
+    <div class="body_sec" style="text-align : center;" >
+        <section id="Introduction">
+            <h3 class="headline">Welcome to Boom Boom world.</h3>
+            <p>
+                This is a game to destroy the blocks by shooting bomb with cannons.<br>
+                User can play the game in first person view.<br>
+                User can challenge each stage and move on to the next stage.
+            </p>
+        </section>
+        <section id="Manual">
+            <h3 class="headline">How to Play</h3>
+            <p>
+                1. Press the START button. <br>
+                2. When you click the screen, the bomb will fly from the center of the screen. <br>
+                3. You have to hit some specific boxes to clear. <br>
+                4. The number of balls is limited. <br>
+                5. If you click the mouse for a while, then the speed of the ball will increase and make you to clear the game easily. <br>
+                6. Press esc button to to exit the game. <br>
+                <br>
+                Enjoy the game :)
+                <br><br>
+            </p>
+        </section>
+        <div class="customize">
+            <h3 class="headline">Customizing Cannon</h3>
+            <table class="tb">
+                <tr>
+                    <td><button class="prev" onclick="C_click2();"><</button></td>
+                    <td><img id ="cannon_photo" src="images_stage/cannon_black.png"></td>
+                    <td><button class="next" onclick="C_click();">></button></td>
+                </tr>
+            </table>
+        </div>
+        <section id="Stage">
+            <h3 class="headline">Stage</h3>
+            <span>
+                <span class="btn_stage_img" >
+                    <a href="threejs_fps.html"><img class="btn_stage_img" src="images_stage/s1.png"   style=" padding:10px; max-width: 10%; height: auto;"
+                            alt="버튼 stage 1" /></a>
+
+                    <a href="threejs_fps2.html"><img class="btn_stage_img" src="images_stage/s2.png"  style="padding:10px; max-width: 10%; height: auto;" 
+                            alt="버튼 stage 2" /></a>
+
+                    <a href="threejs_fps5.html"><img class="btn_stage_img" src="images_stage/s3.png"  style="padding:10px; max-width: 10%; height: auto;"
+                            alt="버튼 stage 3" /></a>
+                    <a href="threejs_fps4.html"><img class="btn_stage_img" src="images_stage/s4.png"  style="padding:10px; max-width: 10%; height: auto;"
+                            alt="버튼 stage 4" /></a>
+                    <a href="threejs_fps3.html"><img class="btn_stage_img" src="images_stage/s5.png"  style="padding:10px; max-width: 10%; height: auto;"
+                            alt="버튼 stage 5" /></a>
+                </span>
+            </span>
+        </section>
+    </div>
+
+    </script>
+    <!-- Footer Section -->
+    <!-- <footer>Footer Section</footer> -->
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        var count=70000;
+        var color='js/Cannon/model.dae';
+
+        function C_click(){
+            count++;
+            if(count%7==1){
+                color='js/Cannon/model1.dae';
+                // change photo
+                $("#cannon_photo").attr("src", "images_stage/cannon_red.png");
+            }
+            else if(count%7==2){
+                color='js/Cannon/model2.dae';
+                // change photo
+                $("#cannon_photo").attr("src", "images_stage/cannon_orange.png");
+            }
+            else if(count%7==3){
+                color='js/Cannon/model3.dae';
+                $("#cannon_photo").attr("src", "images_stage/cannon_yellow.png");
+            }
+            else if(count%7==4){
+                color='js/Cannon/model4.dae';
+                $("#cannon_photo").attr("src", "images_stage/cannon_green.png");
+            }
+            else if(count%7==5){
+                color='js/Cannon/model5.dae';
+                $("#cannon_photo").attr("src", "images_stage/cannon_blue.png");
+            }
+            else if(count%7==6){
+                color='js/Cannon/model6.dae';
+                $("#cannon_photo").attr("src", "images_stage/cannon_purple.png");
+            }
+            else if(count%7==0){
+                color='js/Cannon/model.dae';
+                $("#cannon_photo").attr("src", "images_stage/cannon_black.png");
+            }
+
+            localStorage.setItem('color',JSON.stringify(color));
+        }
+        function C_click2(){
+            count--;
+            if(count%7==1){
+                color='js/Cannon/model1.dae';
+                // change photo
+                $("#cannon_photo").attr("src", "images_stage/cannon_red.png");
+            }
+            else if(count%7==2){
+                color='js/Cannon/model2.dae';
+                // change photo
+                $("#cannon_photo").attr("src", "images_stage/cannon_orange.png");
+            }
+            else if(count%7==3){
+                color='js/Cannon/model3.dae';
+                $("#cannon_photo").attr("src", "images_stage/cannon_yellow.png");
+            }
+            else if(count%7==4){
+                color='js/Cannon/model4.dae';
+                $("#cannon_photo").attr("src", "images_stage/cannon_green.png");
+            }
+            else if(count%7==5){
+                color='js/Cannon/model5.dae';
+                $("#cannon_photo").attr("src", "images_stage/cannon_blue.png");
+            }
+            else if(count%7==6){
+                color='js/Cannon/model6.dae';
+                $("#cannon_photo").attr("src", "images_stage/cannon_purple.png");
+            }
+            else if(count%7==0){
+                color='js/Cannon/model.dae';
+                $("#cannon_photo").attr("src", "images_stage/cannon_black.png");
+            }
+
+            localStorage.setItem('color',JSON.stringify(color));
+        }
+
+    </script>
+
+</body>
+
+</html>
+
