@@ -80,13 +80,6 @@
 
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r69/examples/js/loaders/ColladaLoader.js"></script>
 
-
-    <script src="js/Stage2.js"></script>
-
-    <script src="js/Stage3.js"></script>
-
-    <script src="js/Stage4.js"></script>
-
     <script src="js/Stage5.js"></script>
 
 
@@ -95,7 +88,7 @@
         <div id="instructions">
             
             <span id='text' style="font-size:100px">
-                Stage 3<br />
+                Stage 5<br />
             </span>
             <span id='text2' style="font-size:36px">
                 If you fall the magma box, stage cleared!
@@ -104,7 +97,6 @@
 
             <button class="done" id ='start_btn' onClick='start_or_restart()'> START </button>
             <button class="home" onClick="location.href='boomboom.html'"> HOME</button>
-            <button class="next" onClick="location.href='threejs_fps4.html'"> Next </button>
         </div>
         <div id="success">
             <span style="font-size:40px">Stage3 Clear!</span>
@@ -120,6 +112,8 @@
                     <td><img id='ball1' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
                     <td><img id='ball2' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
                     <td><img id='ball3' src="images_stage/ball.png" style="width:50px; height:50px;"/></td>
+                    <td><img id='ball4' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
+                    <td><img id='ball5' src="images_stage/ball.png" style="width:50px; height:50px;" /></td>
                 </tr>
             </table>
         </div>
@@ -278,14 +272,20 @@
             clearInterval(timer);
             console.log(shootVelo);
             num_try = num_try + 1;
-            switch (num_try){
+            switch (num_try) {
                 case 2:
-                    document.getElementById("ball3").style.visibility = 'hidden';
+                    document.getElementById("ball5").style.visibility = 'hidden';
                     break;
                 case 3:
-                    document.getElementById("ball2").style.visibility = 'hidden';
+                    document.getElementById("ball4").style.visibility = 'hidden';
                     break;
                 case 4:
+                    document.getElementById("ball3").style.visibility = 'hidden';
+                    break;
+                case 5:
+                    document.getElementById("ball2").style.visibility = 'hidden';
+                    break;
+                case 6:
                     document.getElementById("ball1").style.visibility = 'hidden';
                     break;
             }
